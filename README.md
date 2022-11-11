@@ -25,14 +25,19 @@ public class ChatbotDemoApplication {
 }
 ```
 
-`application.yml`配置文件中添加以下相关配置
+`application.yml`配置文件中添加以下相关配置，可以配置多个群
 
 ```yaml
-dingtalk:
-  robot:
-    props:
-      accessToken: accessToken #钉钉群accessToken
-      secret: secret #钉钉群secret
+chatbot:
+  config:
+    chatbot-info:
+      - chatbot-type: dingtalk
+        token: token
+        secret: secret
+      - chatbot-type: weixin
+        token: token
+      - chatbot-type: feishu
+        token: token
 ```
 
 `application.yml`配置文件中添加以下相关配置
@@ -47,5 +52,4 @@ dingtalk:
     }
 ```
 
-发送的消息可通过/dingtalk/robot/list进行查看
-![img.png](img.png)
+发送的消息可通过/chat/robot/list进行查看

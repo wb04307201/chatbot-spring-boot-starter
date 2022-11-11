@@ -39,8 +39,8 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public IChatbotService chatbotService() {
-        return new ChatbotServiceImpl();
+    public IChatbotService chatbotService(ChatbotConfigurationProperties properties) {
+        return new ChatbotServiceImpl(properties);
     }
 
     @Bean
