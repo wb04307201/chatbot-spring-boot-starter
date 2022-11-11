@@ -12,23 +12,17 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">标题</th>
-            <th scope="col">内容</th>
-            <th scope="col">所有人</th>
-            <th scope="col">电话</th>
-            <th scope="col">用户id</th>
-            <th scope="col">响应结果</th>
+            <th scope="col">方式</th>
+            <th scope="col">请求</th>
+            <th scope="col">响应</th>
         </tr>
         </thead>
         <tbody>
         <#list list as row>
         <tr>
             <th scope="row">${row.id}</th>
-            <td>${row.title!'-'}</td>
-            <td>${row.text!'-'}</td>
-            <td>${row.atAll?string("yes","no")}</td>
-            <td>${row.mobiles!'-'}</td>
-            <td>${row.userIds!'-'}</td>
+            <td>${row.type!'-'}</td>
+            <td>${row.request!'-'}</td>
             <td>${row.response!'-'}</td>
         </tr>
         </#list>
