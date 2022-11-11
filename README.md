@@ -1,15 +1,22 @@
-# 钉钉群机器人starter
+# 群机器人发送消息
 
-Dingtalk Chat Group Robot 钉钉聊天群机器人(鉴签)消息发送
+[![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
-[![](https://jitpack.io/v/com.gitee.wb04307201/dingtalk-chat-group-robot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/dingtalk-chat-group-robot-spring-boot-starter)
+#### 对如下移动办公系统的群机器人API做了一层封装，让使用更简单便捷。
+> - [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
+> - [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
+> - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
-在启动类上加上`@EnableDCGR`注解
+> 只需要简单的配置，即可将相同的消息发送到多个聊天群  
+> 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
+> 钉钉和飞书需要使用加签
+
+在启动类上加上`@EnableChatbot`注解
 
 ```java
-@EnableDCGR
+@EnableChatbot
 @SpringBootApplication
-public class SpringTestApplication {
+public class ChatbotDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringTestApplication.class, args);
