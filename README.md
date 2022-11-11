@@ -7,7 +7,7 @@
 > - [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
 > - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
-> 只需要简单的配置，即可将相同的消息发送到多个聊天群  
+> 只需要简单的配置和编码，即可将相同的消息发送到多个聊天群  
 > 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
 > 钉钉和飞书需要使用加签
 
