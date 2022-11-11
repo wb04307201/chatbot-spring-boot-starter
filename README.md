@@ -11,7 +11,27 @@
 > 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
 > 钉钉和飞书需要使用加签
 
-在启动类上加上`@EnableChatbot`注解
+## 第一步 增加 JitPack 仓库
+```xml
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+```
+
+## 第二步 引入jar
+版本请到[jitpack](https://jitpack.io/#com.gitee.wb04307201/file-preview-spring-boot-starter)查看
+```xml
+    <dependency>
+        <groupId>com.gitee.wb04307201</groupId>
+        <artifactId>chatbot-spring-boot-starter</artifactId>
+        <version>版本</version>
+    </dependency>
+```
+
+## 第三步 在启动类上加上`@EnableChatbot`注解
 
 ```java
 @EnableChatbot
@@ -25,7 +45,7 @@ public class ChatbotDemoApplication {
 }
 ```
 
-`application.yml`配置文件中添加以下相关配置，可以配置多个群
+## 第四步 `application.yml`配置文件中添加以下相关配置，可以配置多个群
 
 ```yaml
 chatbot:
@@ -40,7 +60,7 @@ chatbot:
         token: token
 ```
 
-`application.yml`配置文件中添加以下相关配置
+## 第五步 根据需要注入 并调用发送
 
 ```java
     @Autowired
