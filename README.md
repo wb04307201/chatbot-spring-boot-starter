@@ -70,9 +70,10 @@ chatbot:
         return chatbotService.send(
             RequestContent.buildMarkdown()
                 .title("测试群发")
-                .addLine(SubLine.title("这是一个标题",1))
+                .addLine(SubLine.title("这是标题1",1))
+                .addLine(SubLine.title("这是标题2",2))
                 .addLine(SubLine.text("这是一个文本"))
-                .addLine(SubLine.link("这是一个链接","http://www.baidu.com"))
+                .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                 .atAll(true)
         ).toString();
     }
