@@ -78,4 +78,5 @@ chatbot:
     }
 ```
 
-发送的消息可通过/chat/robot/list进行查看
+发送的消息可通过http://127.0.0.1:8080/chat/robot/list进行查看
+![img_1.png](img_1.png)
