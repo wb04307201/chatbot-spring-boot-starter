@@ -7,7 +7,7 @@
     <script type="text/javascript" src="/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
