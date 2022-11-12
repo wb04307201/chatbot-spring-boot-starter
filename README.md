@@ -61,14 +61,20 @@ chatbot:
 ```
 
 ## 第五步 根据需要注入 并调用发送
-
 ```java
     @Autowired
-    IRobotService robotService;
+    IChatbotService chatbotService;
 
-    @PostMapping("/test")
-    public OapiRobotSendResponse test() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, ApiException {
-        return robotService.sendMarkDown("标题","内容");
+    @GetMapping(value = "/chat/robot/test")
+    public String send(){
+        return chatbotService.send(
+            RequestContent.buildMarkdown()
+                .title("测试群发")
+                .addLine(SubLine.title("这是一个标题",1))
+                .addLine(SubLine.text("这是一个文本"))
+                .addLine(SubLine.link("这是一个链接","http://www.baidu.com"))
+                .atAll(true)
+        ).toString();
     }
 ```
 

@@ -55,12 +55,7 @@ public class DingtalkServiceImpl implements ISendService {
         markdown.setTitle(content.getTitle());
         markdown.setText(build(content));
         request.setMarkdown(markdown);
-        try {
-            OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);
-            return oapiRobotSendResponse.getBody();
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
+        return execute(client, request);
     }
 
     public String send(ChatbotInfo chatbotInfo, OapiRobotSendRequest request) {
