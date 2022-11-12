@@ -4,12 +4,8 @@ import cn.wubo.chatbot.entity.enums.SubLineEnum;
 
 public class SubTextLine extends SubLine {
 
-    public SubTextLine() {
-        this.lineType = SubLineEnum.TEXT;
-    }
-
-    public SubTextLine text(String content) {
+    public SubTextLine(String content) {
         this.content = content;
-        return this;
+        this.lineType = SubLineEnum.TEXT;
     }
 }

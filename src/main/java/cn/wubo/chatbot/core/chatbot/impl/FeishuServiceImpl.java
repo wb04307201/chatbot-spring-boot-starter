@@ -43,7 +43,11 @@ public class FeishuServiceImpl implements ISendService {
         JSONObject jo = request(chatbotInfo);
         jo.put("msgtype", "text");
         JSONObject text = new JSONObject();
-        text.put("text", content.getText());
+        if(content.isAll()){
+            text.put("text", "<at user_id = \"all\">所有人</at>" + content.getText());
+        }else{
+            text.put("text", content.getText());
+        }
         jo.put("content", text);
         return post(chatbotInfo,jo.toJSONString());
     }
@@ -86,6 +90,13 @@ public class FeishuServiceImpl implements ISendService {
             }
             ja.add(jo);
         });
+        if(content.isAll()){
+            JSONObject jo = new JSONObject();
+            jo.put("tag", "at");
+            jo.put("user_id", "all");
+            jo.put("user_name", "所有人");
+            ja.add(jo);
+        }
         return new JSONArray(ja);
     }
 

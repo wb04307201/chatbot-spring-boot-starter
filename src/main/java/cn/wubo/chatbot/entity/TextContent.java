@@ -1,10 +1,18 @@
 package cn.wubo.chatbot.entity;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
 
-@Data
-@Accessors(chain = true)
 public class TextContent extends RequestContent {
+    @Getter
     private String text;
+
+    public TextContent atAll(boolean atAll){
+        this.isAll = atAll;
+        return this;
+    }
+
+    public TextContent text(String text){
+        this.text = text;
+        return this;
+    }
 }

@@ -1,18 +1,17 @@
 package cn.wubo.chatbot.entity;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
 
-@Data
-@Accessors(chain = true)
 public abstract class RequestContent {
-    protected Boolean isAll;
 
-    public static RequestContent buildText(){
+    @Getter
+    protected boolean isAll;
+
+    public static TextContent buildText(){
         return new TextContent();
     }
 
-    public static RequestContent buildMarkdown(){
+    public static MarkdownContent buildMarkdown(){
         return new MarkdownContent();
     }
 }

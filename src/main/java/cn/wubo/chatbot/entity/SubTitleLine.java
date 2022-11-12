@@ -8,14 +8,9 @@ public class SubTitleLine extends SubLine {
     @Getter
     private Integer level;
 
-    public SubTitleLine(){
+    public SubTitleLine(String content,Integer level){
         this.lineType = SubLineEnum.TITLE;
-        this.level = 1;
-    }
-
-    public SubTitleLine title(String content,Integer level){
         this.content = content;
         this.level = level;
-        return this;
     }
 }

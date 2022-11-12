@@ -1,4 +1,4 @@
-# 群机器人发送消息
+# chatbot-spring-boot-starter 群机器人发送消息
 
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
@@ -22,7 +22,7 @@
 ```
 
 ## 第二步 引入jar
-版本请到[jitpack](https://jitpack.io/#com.gitee.wb04307201/file-preview-spring-boot-starter)查看
+版本请到[jitpack](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)查看
 ```xml
     <dependency>
         <groupId>com.gitee.wb04307201</groupId>

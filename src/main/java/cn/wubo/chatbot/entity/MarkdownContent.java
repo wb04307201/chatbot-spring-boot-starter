@@ -1,17 +1,26 @@
 package cn.wubo.chatbot.entity;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
-@Accessors(chain = true)
 public class MarkdownContent extends RequestContent {
+    @Getter
     private String title;
+    @Getter
     List<SubLine> lines;
 
-    public RequestContent addLine(SubLine line){
+    public MarkdownContent atAll(boolean atAll){
+        this.isAll = atAll;
+        return this;
+    }
+
+    public MarkdownContent title(String title){
+        this.title = title;
+        return this;
+    }
+
+    public MarkdownContent addLine(SubLine line){
         this.lines.add(line);
         return this;
     }

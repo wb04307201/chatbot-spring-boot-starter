@@ -39,7 +39,7 @@ public class WeixinServiceImpl implements ISendService {
         jo.put("msgtype", "text");
         JSONObject text = new JSONObject();
         text.put("content", content.getText());
-        if (content.getIsAll().equals(Boolean.TRUE))
+        if (content.isAll())
             text.put("mentioned_list", new JSONArray().add("@all"));
         jo.put("text", text);
         return post(chatbotInfo, jo.toJSONString());
@@ -51,7 +51,7 @@ public class WeixinServiceImpl implements ISendService {
         jo.put("msgtype", "markdown");
         JSONObject markdown = new JSONObject();
         markdown.put("content", build(content));
-        if (content.getIsAll().equals(Boolean.TRUE))
+        if (content.isAll())
             markdown.put("mentioned_list", new JSONArray().add("@all"));
         jo.put("markdown", markdown);
         return post(chatbotInfo, jo.toJSONString());

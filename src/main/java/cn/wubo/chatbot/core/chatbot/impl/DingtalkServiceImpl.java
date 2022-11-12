@@ -39,7 +39,7 @@ public class DingtalkServiceImpl implements ISendService {
 
     public String sendText(ChatbotInfo chatbotInfo, TextContent content) {
         DingTalkClient client = client(chatbotInfo);
-        OapiRobotSendRequest request = request(content.getIsAll(), null, null);
+        OapiRobotSendRequest request = request(content.isAll(), null, null);
         request.setMsgtype("text");
         OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
         text.setContent(content.getText());
@@ -49,7 +49,7 @@ public class DingtalkServiceImpl implements ISendService {
 
     public String sendMarkDown(ChatbotInfo chatbotInfo, MarkdownContent content) {
         DingTalkClient client = client(chatbotInfo);
-        OapiRobotSendRequest request = request(content.getIsAll(), null, null);
+        OapiRobotSendRequest request = request(content.isAll(), null, null);
         request.setMsgtype("markdown");
         OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
         markdown.setTitle(content.getTitle());
