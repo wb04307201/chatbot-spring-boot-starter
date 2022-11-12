@@ -107,7 +107,7 @@ public class DingtalkServiceImpl implements ISendService {
                             return IntStream.range(0, subTitleLine.getLevel()).mapToObj(i -> "#").collect(Collectors.joining()) + " " + subTitleLine.getContent();
                         case LINK:
                             SubLinkLine subLinkLine = (SubLinkLine) line;
-                            return String.format("[%s]%s", subLinkLine.getContent(), subLinkLine.getLink());
+                            return String.format("[%s](%s)", subLinkLine.getContent(), subLinkLine.getLink());
                         case TEXT:
                         default:
                             return line.getContent();

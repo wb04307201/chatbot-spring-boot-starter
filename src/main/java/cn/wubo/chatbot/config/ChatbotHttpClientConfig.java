@@ -39,8 +39,8 @@ public class ChatbotHttpClientConfig {
     @DurationUnit(ChronoUnit.SECONDS)
     private final Duration readTimeout = Duration.ofSeconds(30);
 
-    @Bean(name = "ChatbotRestTemplate")
-    public RestTemplate restTemplate(ClientHttpRequestFactory chatbotClientHttpRequestFactory) {
+    @Bean(name = "chatbotRestTemplate")
+    public RestTemplate chatbotRestTemplate(ClientHttpRequestFactory chatbotClientHttpRequestFactory) {
         return new RestTemplate(chatbotClientHttpRequestFactory);
     }
 
