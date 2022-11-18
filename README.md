@@ -11,6 +11,8 @@
 > 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
 > 钉钉和飞书需要使用加签
 
+[示例](https://gitee.com/wb04307201/chatbot-demo)
+
 ## 第一步 增加 JitPack 仓库
 ```xml
     <repositories>
