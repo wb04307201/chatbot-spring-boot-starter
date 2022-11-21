@@ -1,7 +1,7 @@
 package cn.wubo.chatbot.page;
 
-import cn.wubo.chatbot.core.storage.impl.H2StorageServiceImpl;
 import cn.wubo.chatbot.core.storage.IStorageService;
+import cn.wubo.chatbot.core.storage.impl.H2StorageServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +17,15 @@ import java.util.Map;
 @Slf4j
 public class ChatbotListServlet extends HttpServlet {
 
-    private static IStorageService histroyService = new H2StorageServiceImpl();
+    private IStorageService histroyService = new H2StorageServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String contextPath = req.getContextPath();
         if (histroyService != null) {
             Map<String, Object> data = new HashMap<>();
-            data.put("list",histroyService.list());
+            data.put("list", histroyService.list());
+            data.put("contextPath", contextPath);
 
             freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_23);
             cfg.setClassForTemplateLoading(this.getClass(), "/template");
@@ -35,7 +37,6 @@ public class ChatbotListServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else {
-            String contextPath = req.getContextPath();
             log.debug("contextPath========{}", contextPath);
             String servletPath = req.getServletPath();
             log.debug("servletPath========{}", servletPath);
