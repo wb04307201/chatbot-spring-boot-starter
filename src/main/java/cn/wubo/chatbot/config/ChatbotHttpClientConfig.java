@@ -15,6 +15,7 @@
  */
 package cn.wubo.chatbot.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +41,7 @@ public class ChatbotHttpClientConfig {
     private final Duration readTimeout = Duration.ofSeconds(30);
 
     @Bean(name = "chatbotRestTemplate")
-    public RestTemplate chatbotRestTemplate(ClientHttpRequestFactory chatbotClientHttpRequestFactory) {
+    public RestTemplate chatbotRestTemplate(@Qualifier("chatbotClientHttpRequestFactory") ClientHttpRequestFactory chatbotClientHttpRequestFactory) {
         return new RestTemplate(chatbotClientHttpRequestFactory);
     }
 
