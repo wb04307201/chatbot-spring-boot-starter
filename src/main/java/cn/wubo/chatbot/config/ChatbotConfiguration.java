@@ -6,6 +6,8 @@ import cn.wubo.chatbot.platform.impl.FeishuServiceImpl;
 import cn.wubo.chatbot.platform.impl.WeixinServiceImpl;
 import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
 import cn.wubo.chatbot.page.ChatbotListServlet;
+import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -26,6 +28,21 @@ public class ChatbotConfiguration {
     }
 
     @Bean
+    public IStorageService storageService() {
+        IStorageService storageService = new H2StorageServiceImpl();
+        storageService.init();
+        return storageService;
+    }
+
+    @Bean
+    public ServletRegistrationBean listServlet() {
+        ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean();
+        registration.setServlet(new ChatbotListServlet());
+        registration.addUrlMappings(new String[]{"/chat/robot/list"});
+        return registration;
+    }
+
+    @Bean
     public DingtalkServiceImpl dingtalkService() {
         return new DingtalkServiceImpl();
     }
@@ -43,13 +60,5 @@ public class ChatbotConfiguration {
     @Bean
     public IChatbotService chatbotService(ChatbotConfigurationProperties properties) {
         return new ChatbotServiceImpl(properties);
-    }
-
-    @Bean
-    public ServletRegistrationBean listServlet() {
-        ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean();
-        registration.setServlet(new ChatbotListServlet());
-        registration.addUrlMappings(new String[]{"/chat/robot/list"});
-        return registration;
     }
 }

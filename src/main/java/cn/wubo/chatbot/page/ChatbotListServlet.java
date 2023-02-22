@@ -1,13 +1,12 @@
 package cn.wubo.chatbot.page;
 
 import cn.wubo.chatbot.storage.IStorageService;
-import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,9 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class ChatbotListServlet extends HttpServlet {
+public class ChatbotListServlet extends BaseServlet {
 
-    private IStorageService histroyService = new H2StorageServiceImpl();
+    @Autowired
+    private IStorageService histroyService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

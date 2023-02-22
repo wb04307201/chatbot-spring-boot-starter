@@ -9,4 +9,6 @@ public interface IStorageService {
     ChatbotHistory save(ChatbotHistory chatbotHistory);
 
     List<ChatbotHistory> list();
+
+    void init();
 }

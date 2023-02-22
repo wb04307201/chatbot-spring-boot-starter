@@ -1,10 +1,9 @@
 package cn.wubo.chatbot.platform.impl;
 
-import cn.wubo.chatbot.platform.ISendService;
-import cn.wubo.chatbot.storage.IStorageService;
-import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import cn.wubo.chatbot.entity.*;
 import cn.wubo.chatbot.entity.enums.ChatbotType;
+import cn.wubo.chatbot.platform.ISendService;
+import cn.wubo.chatbot.storage.IStorageService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -22,7 +21,8 @@ import java.util.stream.IntStream;
 @Slf4j
 public class WeixinServiceImpl implements ISendService {
 
-    IStorageService storageService = new H2StorageServiceImpl();
+    @Autowired
+    IStorageService storageService;
 
     @Autowired
     @Qualifier(value = "chatbotRestTemplate")

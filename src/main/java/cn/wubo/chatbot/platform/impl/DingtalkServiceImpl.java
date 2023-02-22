@@ -1,10 +1,9 @@
 package cn.wubo.chatbot.platform.impl;
 
-import cn.wubo.chatbot.platform.ISendService;
-import cn.wubo.chatbot.storage.IStorageService;
-import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import cn.wubo.chatbot.entity.*;
 import cn.wubo.chatbot.entity.enums.ChatbotType;
+import cn.wubo.chatbot.platform.ISendService;
+import cn.wubo.chatbot.storage.IStorageService;
 import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
@@ -13,6 +12,7 @@ import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.Mac;
@@ -30,7 +30,8 @@ import java.util.stream.IntStream;
 @Slf4j
 public class DingtalkServiceImpl implements ISendService {
 
-    IStorageService storageService = new H2StorageServiceImpl();
+    @Autowired
+    IStorageService storageService;
 
     @Override
     public Boolean support(ChatbotType chatbotType) {

@@ -24,9 +24,6 @@ public class H2StorageServiceImpl implements IStorageService {
     public ChatbotHistory save(ChatbotHistory chatbotHistoryDto) {
         try {
             Connection conn = connectionPool.getConnection();
-            if (!ExecuteSqlUtils.isTableExists(conn, HISTORY, connectionPool.getDbType())) {
-                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.createSql(HISTORY, chatbotHistoryDto), new HashMap<>());
-            }
             if (!StringUtils.hasLength(chatbotHistoryDto.getId())) {
                 chatbotHistoryDto.setId(UUID.randomUUID().toString());
                 ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.insertSql(HISTORY, chatbotHistoryDto), new HashMap<>());
@@ -44,12 +41,21 @@ public class H2StorageServiceImpl implements IStorageService {
     public List<ChatbotHistory> list() {
         try {
             Connection conn = connectionPool.getConnection();
-            if (!ExecuteSqlUtils.isTableExists(conn, HISTORY, connectionPool.getDbType())) {
-                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.createSql(HISTORY, new ChatbotHistory()), new HashMap<>());
-            }
             List<ChatbotHistory> res = ExecuteSqlUtils.executeQuery(conn, ModelSqlUtils.selectSql(HISTORY, new ChatbotHistory()), new HashMap<>(), ChatbotHistory.class);
             connectionPool.returnConnection(conn);
             return res;
+        } catch (SQLException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void init() {
+        try {
+            Connection conn = connectionPool.getConnection();
+            if (!ExecuteSqlUtils.isTableExists(conn, HISTORY, connectionPool.getDbType())) {
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.createSql(HISTORY, new ChatbotHistory()), new HashMap<>());
+            }
         } catch (SQLException | InterruptedException e) {
             throw new RuntimeException(e);
         }
