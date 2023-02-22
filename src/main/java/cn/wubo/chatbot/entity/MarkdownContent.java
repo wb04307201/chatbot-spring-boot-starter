@@ -1,5 +1,6 @@
 package cn.wubo.chatbot.entity;
 
+import cn.wubo.chatbot.entity.enums.ChatbotType;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -23,6 +24,16 @@ public class MarkdownContent extends RequestContent {
 
     public MarkdownContent addLine(SubLine line){
         this.lines.add(line);
+        return this;
+    }
+
+    public MarkdownContent addPlatform(String platform) {
+        this.platform.add(platform);
+        return this;
+    }
+
+    public MarkdownContent addChatbotType(ChatbotType chatbotType) {
+        this.chatbotType.add(chatbotType);
         return this;
     }
 }

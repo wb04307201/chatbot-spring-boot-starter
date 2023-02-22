@@ -1,7 +1,7 @@
-package cn.wubo.chatbot.core.storage.impl;
+package cn.wubo.chatbot.storage.impl;
 
 import cn.wubo.chatbot.entity.ChatbotHistory;
-import cn.wubo.chatbot.core.storage.IStorageService;
+import cn.wubo.chatbot.storage.IStorageService;
 import cn.wubo.sql.util.ConnectionParam;
 import cn.wubo.sql.util.ConnectionPool;
 import cn.wubo.sql.util.ExecuteSqlUtils;

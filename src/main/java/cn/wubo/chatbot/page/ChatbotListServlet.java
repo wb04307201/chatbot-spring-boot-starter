@@ -1,7 +1,7 @@
 package cn.wubo.chatbot.page;
 
-import cn.wubo.chatbot.core.storage.IStorageService;
-import cn.wubo.chatbot.core.storage.impl.H2StorageServiceImpl;
+import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;

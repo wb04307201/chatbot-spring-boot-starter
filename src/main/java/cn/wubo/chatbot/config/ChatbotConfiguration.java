@@ -1,9 +1,9 @@
 package cn.wubo.chatbot.config;
 
 import cn.wubo.chatbot.core.IChatbotService;
-import cn.wubo.chatbot.core.chatbot.impl.DingtalkServiceImpl;
-import cn.wubo.chatbot.core.chatbot.impl.FeishuServiceImpl;
-import cn.wubo.chatbot.core.chatbot.impl.WeixinServiceImpl;
+import cn.wubo.chatbot.platform.impl.DingtalkServiceImpl;
+import cn.wubo.chatbot.platform.impl.FeishuServiceImpl;
+import cn.wubo.chatbot.platform.impl.WeixinServiceImpl;
 import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
 import cn.wubo.chatbot.page.ChatbotListServlet;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

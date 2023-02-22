@@ -1,4 +1,4 @@
-package cn.wubo.chatbot.core.storage;
+package cn.wubo.chatbot.storage;
 
 import cn.wubo.chatbot.entity.ChatbotHistory;
 

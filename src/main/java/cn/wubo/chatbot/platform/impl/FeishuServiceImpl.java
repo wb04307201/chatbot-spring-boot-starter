@@ -1,8 +1,8 @@
-package cn.wubo.chatbot.core.chatbot.impl;
+package cn.wubo.chatbot.platform.impl;
 
-import cn.wubo.chatbot.core.chatbot.ISendService;
-import cn.wubo.chatbot.core.storage.IStorageService;
-import cn.wubo.chatbot.core.storage.impl.H2StorageServiceImpl;
+import cn.wubo.chatbot.platform.ISendService;
+import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import cn.wubo.chatbot.entity.*;
 import cn.wubo.chatbot.entity.enums.ChatbotType;
 import com.alibaba.fastjson.JSON;
@@ -34,8 +34,8 @@ public class FeishuServiceImpl implements ISendService {
     RestTemplate restTemplate;
 
     @Override
-    public Boolean support(ChatbotInfo chatbotInfo) {
-        return chatbotInfo.getChatbotType().equals(ChatbotType.FEISHU);
+    public Boolean support(ChatbotType chatbotType) {
+        return chatbotType.equals(ChatbotType.FEISHU);
     }
 
     @Override
