@@ -104,6 +104,9 @@ public class DingtalkServiceImpl implements ISendService {
                         case LINK:
                             SubLinkLine subLinkLine = (SubLinkLine) line;
                             return String.format("[%s](%s)", subLinkLine.getContent(), subLinkLine.getLink());
+                        case QUOTE:
+                            SubQuoteLine subQuoteLine = (SubQuoteLine) line;
+                            return String.format("> %s", subQuoteLine.getContent());
                         case TEXT:
                         default:
                             return line.getContent();

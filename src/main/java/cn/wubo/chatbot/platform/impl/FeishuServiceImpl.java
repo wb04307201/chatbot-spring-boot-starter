@@ -84,6 +84,7 @@ public class FeishuServiceImpl implements ISendService {
                     break;
                 case TEXT:
                 case TITLE:
+                case QUOTE:
                 default:
                     jo.put("tag", "text");
                     jo.put("text", line.getContent());

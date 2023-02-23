@@ -16,11 +16,15 @@ public abstract class SubLine {
         return new SubTextLine(content);
     }
 
-    public static SubTitleLine title(String content,Integer level){
-        return new SubTitleLine(content,level);
+    public static SubTitleLine title(String content, Integer level) {
+        return new SubTitleLine(content, level);
     }
 
-    public static SubTitleLine title(String content){
-        return new SubTitleLine(content,1);
+    public static SubTitleLine title(String content) {
+        return new SubTitleLine(content, 1);
+    }
+
+    public static SubQuoteLine quote(String content) {
+        return new SubQuoteLine(content);
     }
 }
