@@ -107,6 +107,9 @@ public class DingtalkServiceImpl implements ISendService {
                         case QUOTE:
                             SubQuoteLine subQuoteLine = (SubQuoteLine) line;
                             return String.format("> %s", subQuoteLine.getContent());
+                        case BOLD:
+                            SubBoldLine subBoldLine = (SubBoldLine) line;
+                            return String.format("**%s**", subBoldLine.getContent());
                         case TEXT:
                         default:
                             return line.getContent();

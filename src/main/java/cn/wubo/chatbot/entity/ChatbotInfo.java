@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ChatbotInfo {
-    private String platform;
+    private String alias;
     private ChatbotType chatbotType;
     private String token;
     private String secret;

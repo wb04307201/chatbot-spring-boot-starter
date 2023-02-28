@@ -27,8 +27,8 @@ public class MarkdownContent extends RequestContent {
         return this;
     }
 
-    public MarkdownContent addPlatform(String platform) {
-        this.platform.add(platform);
+    public MarkdownContent addAlias(String alias) {
+        this.alias.add(alias);
         return this;
     }
 

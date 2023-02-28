@@ -17,8 +17,8 @@ public class TextContent extends RequestContent {
         return this;
     }
 
-    public TextContent addPlatform(String platform) {
-        this.platform.add(platform);
+    public TextContent addAlias(String alias) {
+        this.alias.add(alias);
         return this;
     }
 

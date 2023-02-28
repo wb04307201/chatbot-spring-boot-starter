@@ -43,13 +43,13 @@ public class FeishuServiceImpl implements ISendService {
         JSONObject jo = request(chatbotInfo);
         jo.put("msgtype", "text");
         JSONObject text = new JSONObject();
-        if(content.isAll()){
+        if (content.isAll()) {
             text.put("text", "<at user_id = \"all\">所有人</at>" + content.getText());
-        }else{
+        } else {
             text.put("text", content.getText());
         }
         jo.put("content", text);
-        return post(chatbotInfo,jo.toJSONString());
+        return post(chatbotInfo, jo.toJSONString());
     }
 
     @Override
@@ -60,15 +60,15 @@ public class FeishuServiceImpl implements ISendService {
         post.put("title", content.getTitle());
         post.put("content", build(content));
         jo.put("content", new JSONObject().put("post", new JSONObject().put("zh_cn", post)));
-        return post(chatbotInfo,jo.toJSONString());
+        return post(chatbotInfo, jo.toJSONString());
     }
 
     public String send(ChatbotInfo chatbotInfo, String request) {
         JSONObject jo = request(chatbotInfo);
-        JSONObject.parseObject(request).forEach((k,v) ->{
-            jo.put(k,v);
+        JSONObject.parseObject(request).forEach((k, v) -> {
+            jo.put(k, v);
         });
-        return post(chatbotInfo,jo.toJSONString());
+        return post(chatbotInfo, jo.toJSONString());
     }
 
     private JSONArray build(MarkdownContent content) {
@@ -85,13 +85,14 @@ public class FeishuServiceImpl implements ISendService {
                 case TEXT:
                 case TITLE:
                 case QUOTE:
+                case BOLD:
                 default:
                     jo.put("tag", "text");
                     jo.put("text", line.getContent());
             }
             ja.add(jo);
         });
-        if(content.isAll()){
+        if (content.isAll()) {
             JSONObject jo = new JSONObject();
             jo.put("tag", "at");
             jo.put("user_id", "all");

@@ -12,7 +12,7 @@ public abstract class RequestContent {
     protected boolean isAll;
 
     @Getter
-    protected List<String> platform = new ArrayList<>();
+    protected List<String> alias = new ArrayList<>();
 
     @Getter
     protected List<ChatbotType> chatbotType = new ArrayList<>();

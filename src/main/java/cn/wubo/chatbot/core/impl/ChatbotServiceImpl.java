@@ -26,7 +26,7 @@ public class ChatbotServiceImpl implements IChatbotService {
         properties.getChatbotInfo().forEach(chatbotInfo -> {
             services.stream()
                     .filter(service -> service.support(chatbotInfo.getChatbotType()) && content.getChatbotType().isEmpty() || content.getChatbotType().stream().anyMatch(service::support))
-                    .filter(service -> content.getPlatform().isEmpty() || content.getPlatform().stream().anyMatch(e -> chatbotInfo.getPlatform().equals(e)))
+                    .filter(service -> content.getAlias().isEmpty() || content.getAlias().stream().anyMatch(e -> chatbotInfo.getAlias().equals(e)))
                     .findAny()
                     .ifPresent(service -> {
                         if (content instanceof TextContent)

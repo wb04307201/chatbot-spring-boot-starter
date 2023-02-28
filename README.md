@@ -61,16 +61,16 @@ public class ChatbotDemoApplication {
 chatbot:
   config:
     chatbot-info:
-      - platform: dd-1
+      - alias: dd-1
         chatbot-type: dingtalk
         # webhook地址 https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxxxxxxxxxxx
         token: 为webhook地址中xxxxxxxxxxxxxxxxx部分
         secret: secret
-      - platform: wx-1
+      - alias: wx-1
         chatbot-type: weixin
         # webhook地址 https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxxxxxxxxxxx
         token: 为webhook地址中xxxxxxxxxxxxxxxxx部分
-      - platform: fs-1
+      - alias: fs-1
         chatbot-type: feishu
         # webhook地址 https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxxxxxxxxx
         token: 为webhook地址中xxxxxxxxxxxxxxxxx部分
@@ -80,6 +80,7 @@ chatbot:
 ## 第五步 根据需要注入 并调用发送
 
 ```java
+
 @RestController
 public class DemoController {
 
@@ -87,7 +88,7 @@ public class DemoController {
     IChatbotService chatbotService;
 
     @GetMapping(value = "/chat/robot/test")
-    public String send(){
+    public String send() {
         //发送到全部平台
         /*return chatbotService.send(
                 RequestContent.buildMarkdown()
@@ -115,13 +116,13 @@ public class DemoController {
 
         //发送到某个平台
         return chatbotService.send(
-                RequestContent.buildMarkdown().addPlatform("dd-2")
+                RequestContent.buildMarkdown().addAlias("dd-2")
                         .addChatbotType(ChatbotType.DINGTALK)
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1",1))
-                        .addLine(SubLine.title("这是标题2",2))
+                        .addLine(SubLine.title("这是标题1", 1))
+                        .addLine(SubLine.title("这是标题2", 2))
                         .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.link("这是一个链接", "https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                         .addLine(SubLine.quote("这是一个引用"))
                         .atAll(true)
         ).toString();
@@ -135,6 +136,7 @@ public class DemoController {
 | SubLine.title | 标题  | 标题   | text |
 | SubLine.link  | 链接  | 链接   | a    |
 | SubLine.quote | 引用  | 引用文字 | text |
+| SubLine.bold  | 加粗  | 加粗   | text |
 
 发送的消息可通过http://127.0.0.1:8080/chat/robot/list进行查看
 ![img_1.png](img_1.png)
