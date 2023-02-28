@@ -80,7 +80,6 @@ chatbot:
 ## 第五步 根据需要注入 并调用发送
 
 ```java
-
 @RestController
 public class DemoController {
 
@@ -88,7 +87,7 @@ public class DemoController {
     IChatbotService chatbotService;
 
     @GetMapping(value = "/chat/robot/test")
-    public String send() {
+    public String send(){
         //发送到全部平台
         /*return chatbotService.send(
                 RequestContent.buildMarkdown()
@@ -98,6 +97,7 @@ public class DemoController {
                         .addLine(SubLine.text("这是一个文本"))
                         .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                         .addLine(SubLine.quote("这是一个引用"))
+                        .addLine(SubLine.bold("这是一个加粗"))
                         .atAll(true)
         ).toString();*/
 
@@ -111,19 +111,21 @@ public class DemoController {
                         .addLine(SubLine.text("这是一个文本"))
                         .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                         .addLine(SubLine.quote("这是一个引用"))
+                        .addLine(SubLine.bold("这是一个加粗"))
                         .atAll(true)
         ).toString();*/
 
         //发送到某个平台
         return chatbotService.send(
-                RequestContent.buildMarkdown().addAlias("dd-2")
+                RequestContent.buildMarkdown().addAlias("dd-1")
                         .addChatbotType(ChatbotType.DINGTALK)
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1", 1))
-                        .addLine(SubLine.title("这是标题2", 2))
+                        .addLine(SubLine.title("这是标题1",1))
+                        .addLine(SubLine.title("这是标题2",2))
                         .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接", "https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                         .addLine(SubLine.quote("这是一个引用"))
+                        .addLine(SubLine.bold("这是一个加粗"))
                         .atAll(true)
         ).toString();
     }
