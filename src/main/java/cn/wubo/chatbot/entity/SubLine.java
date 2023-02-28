@@ -27,4 +27,8 @@ public abstract class SubLine {
     public static SubQuoteLine quote(String content) {
         return new SubQuoteLine(content);
     }
+
+    public static SubBoldLine bold(String content) {
+        return new SubBoldLine(content);
+    }
 }
