@@ -1,13 +1,13 @@
 package cn.wubo.chatbot.config;
 
 import cn.wubo.chatbot.core.IChatbotService;
+import cn.wubo.chatbot.exception.ChatbotRuntimeException;
 import cn.wubo.chatbot.platform.impl.DingtalkServiceImpl;
 import cn.wubo.chatbot.platform.impl.FeishuServiceImpl;
 import cn.wubo.chatbot.platform.impl.WeixinServiceImpl;
 import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
 import cn.wubo.chatbot.page.ChatbotListServlet;
 import cn.wubo.chatbot.storage.IStorageService;
-import cn.wubo.chatbot.storage.impl.H2StorageServiceImpl;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -29,9 +29,12 @@ public class ChatbotConfiguration {
 
     @Bean
     public IStorageService storageService() {
-        IStorageService storageService = new H2StorageServiceImpl();
-        storageService.init();
-        return storageService;
+        try {
+            Class<?> clazz = Class.forName(properties.getStorageClass());
+            return (IStorageService) clazz.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new ChatbotRuntimeException(e.getMessage(), e);
+        }
     }
 
     @Bean

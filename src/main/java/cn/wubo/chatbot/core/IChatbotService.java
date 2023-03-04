@@ -1,7 +1,6 @@
 package cn.wubo.chatbot.core;
 
-import cn.wubo.chatbot.entity.ChatbotInfo;
-import cn.wubo.chatbot.entity.RequestContent;
+import cn.wubo.chatbot.message.RequestContent;
 
 import java.util.List;
 

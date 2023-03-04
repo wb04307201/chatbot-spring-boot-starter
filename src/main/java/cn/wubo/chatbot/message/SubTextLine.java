@@ -1,6 +1,4 @@
-package cn.wubo.chatbot.entity;
-
-import cn.wubo.chatbot.entity.enums.SubLineEnum;
+package cn.wubo.chatbot.message;
 
 public class SubTextLine extends SubLine {
 

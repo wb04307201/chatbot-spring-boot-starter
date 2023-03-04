@@ -1,6 +1,5 @@
-package cn.wubo.chatbot.entity;
+package cn.wubo.chatbot.core;
 
-import cn.wubo.chatbot.entity.enums.ChatbotType;
 import lombok.Data;
 
 @Data

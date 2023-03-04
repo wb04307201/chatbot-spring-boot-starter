@@ -1,6 +1,5 @@
-package cn.wubo.chatbot.entity;
+package cn.wubo.chatbot.message;
 
-import cn.wubo.chatbot.entity.enums.SubLineEnum;
 import lombok.Getter;
 
 public class SubLinkLine extends SubLine {

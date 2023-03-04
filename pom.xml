@@ -94,11 +94,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.gitee.wb04307201</groupId>
-            <artifactId>sql-util</artifactId>
-            <version>1.2.3</version>
-        </dependency>
     </dependencies>
 
     <repositories>

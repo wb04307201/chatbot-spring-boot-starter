@@ -2,8 +2,10 @@ package cn.wubo.chatbot.core.impl;
 
 import cn.wubo.chatbot.config.ChatbotConfigurationProperties;
 import cn.wubo.chatbot.core.IChatbotService;
+import cn.wubo.chatbot.message.MarkdownContent;
+import cn.wubo.chatbot.message.RequestContent;
+import cn.wubo.chatbot.message.TextContent;
 import cn.wubo.chatbot.platform.ISendService;
-import cn.wubo.chatbot.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

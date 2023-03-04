@@ -1,4 +1,4 @@
-package cn.wubo.chatbot.entity.enums;
+package cn.wubo.chatbot.message;
 
 public enum SubLineEnum {
     TEXT,

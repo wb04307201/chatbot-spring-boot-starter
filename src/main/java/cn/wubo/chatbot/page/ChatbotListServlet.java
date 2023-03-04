@@ -1,5 +1,7 @@
 package cn.wubo.chatbot.page;
 
+import cn.wubo.chatbot.exception.ChatbotRuntimeException;
+import cn.wubo.chatbot.storage.ChatbotHistory;
 import cn.wubo.chatbot.storage.IStorageService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -17,15 +19,26 @@ import java.util.Map;
 public class ChatbotListServlet extends BaseServlet {
 
     @Autowired
-    private IStorageService histroyService;
+    private IStorageService storageService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String contextPath = req.getContextPath();
-        if (histroyService != null) {
+        if (storageService != null) {
             Map<String, Object> data = new HashMap<>();
-            data.put("list", histroyService.list());
+
+            ChatbotHistory chatbotHistory = new ChatbotHistory();
+            if (req.getMethod().equalsIgnoreCase("post")) {
+                Map<String, String[]> map = req.getParameterMap();
+                chatbotHistory.setType(map.get("type")[0]);
+                chatbotHistory.setAlias(map.get("alias")[0]);
+                chatbotHistory.setRequest(map.get("request")[0]);
+                chatbotHistory.setResponse(map.get("response")[0]);
+            }
+
+            data.put("list", storageService.list(chatbotHistory));
             data.put("contextPath", contextPath);
+            data.put("query", chatbotHistory);
 
             freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_23);
             cfg.setClassForTemplateLoading(this.getClass(), "/template");
@@ -34,7 +47,7 @@ public class ChatbotListServlet extends BaseServlet {
                 Template template = cfg.getTemplate("list.ftl", "UTF-8");
                 template.process(data, resp.getWriter());
             } catch (TemplateException | IOException e) {
-                throw new RuntimeException(e);
+                throw new ChatbotRuntimeException(e.getMessage(), e);
             }
         } else {
             log.debug("contextPath========{}", contextPath);
@@ -42,5 +55,10 @@ public class ChatbotListServlet extends BaseServlet {
             log.debug("servletPath========{}", servletPath);
             super.doGet(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
     }
 }

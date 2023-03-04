@@ -1,7 +1,9 @@
 package cn.wubo.chatbot.platform.impl;
 
-import cn.wubo.chatbot.entity.*;
-import cn.wubo.chatbot.entity.enums.ChatbotType;
+import cn.wubo.chatbot.storage.ChatbotHistory;
+import cn.wubo.chatbot.core.ChatbotInfo;
+import cn.wubo.chatbot.core.ChatbotType;
+import cn.wubo.chatbot.message.*;
 import cn.wubo.chatbot.platform.ISendService;
 import cn.wubo.chatbot.storage.IStorageService;
 import com.alibaba.fastjson.JSON;
@@ -89,6 +91,7 @@ public class WeixinServiceImpl implements ISendService {
         ChatbotHistory chatbotHistory = new ChatbotHistory();
         chatbotHistory.setType(ChatbotType.WEIXIN.getType());
         chatbotHistory.setRequest(JSON.toJSONString(body));
+        chatbotHistory.setAlias(chatbotInfo.getAlias());
         storageService.save(chatbotHistory);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");

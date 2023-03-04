@@ -1,6 +1,6 @@
-package cn.wubo.chatbot.entity;
+package cn.wubo.chatbot.message;
 
-import cn.wubo.chatbot.entity.enums.ChatbotType;
+import cn.wubo.chatbot.core.ChatbotType;
 import lombok.Getter;
 
 public class TextContent extends RequestContent {

@@ -1,10 +1,10 @@
-package cn.wubo.chatbot.entity.enums;
+package cn.wubo.chatbot.core;
 
 public enum ChatbotType {
 
-    DINGTALK("钉钉", "https://oapi.dingtalk.com/robot/send?access_token=%s&timestamp=%s&sign=%s"),
-    WEIXIN("企业微信", "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s"),
-    FEISHU("飞书", "https://open.feishu.cn/open-apis/bot/v2/hook/%s"),
+    DINGTALK("DINGTALK", "https://oapi.dingtalk.com/robot/send?access_token=%s&timestamp=%s&sign=%s"),
+    WEIXIN("WEIXIN", "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s"),
+    FEISHU("FEISHU", "https://open.feishu.cn/open-apis/bot/v2/hook/%s"),
     ;
 
     private String type;

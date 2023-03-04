@@ -1,7 +1,12 @@
 package cn.wubo.chatbot.platform.impl;
 
-import cn.wubo.chatbot.entity.*;
-import cn.wubo.chatbot.entity.enums.ChatbotType;
+import cn.wubo.chatbot.exception.FeishuRuntimeException;
+import cn.wubo.chatbot.storage.ChatbotHistory;
+import cn.wubo.chatbot.core.ChatbotInfo;
+import cn.wubo.chatbot.core.ChatbotType;
+import cn.wubo.chatbot.message.MarkdownContent;
+import cn.wubo.chatbot.message.SubLinkLine;
+import cn.wubo.chatbot.message.TextContent;
 import cn.wubo.chatbot.platform.ISendService;
 import cn.wubo.chatbot.storage.IStorageService;
 import com.alibaba.fastjson.JSON;
@@ -107,7 +112,7 @@ public class FeishuServiceImpl implements ISendService {
         Long timestamp = System.currentTimeMillis();
         String secret = chatbotInfo.getSecret();
         if (!StringUtils.hasLength(secret))
-            throw new RuntimeException("发送飞书机器人消息时，secret必须配置！");
+            throw new FeishuRuntimeException("发送飞书机器人消息时，secret必须配置！");
         String stringToSign = timestamp + "\n" + secret;
         try {
             Mac mac = Mac.getInstance("HmacSHA256");
@@ -118,7 +123,7 @@ public class FeishuServiceImpl implements ISendService {
             jo.put("sign", sign);
             return jo;
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException(e);
+            throw new FeishuRuntimeException(e.getMessage(), e);
         }
     }
 
@@ -126,6 +131,7 @@ public class FeishuServiceImpl implements ISendService {
         ChatbotHistory chatbotHistory = new ChatbotHistory();
         chatbotHistory.setType(ChatbotType.FEISHU.getType());
         chatbotHistory.setRequest(JSON.toJSONString(body));
+        chatbotHistory.setAlias(chatbotInfo.getAlias());
         storageService.save(chatbotHistory);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
