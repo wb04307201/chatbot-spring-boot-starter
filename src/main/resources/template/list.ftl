@@ -67,8 +67,8 @@
                             <th scope="row">${row.id}</th>
                             <td>${row.alias!'-'}</td>
                             <td>${row.type!'-'}</td>
-                            <td><a href="#" data-bs-toggle="tooltip" data-bs-title="${row.request!'-'}">${row.request!'-'}</a></td>
-                            <td><a href="#" data-bs-toggle="tooltip" data-bs-title="${row.response!'-'}">${row.response!'-'}</a></td>
+                            <td>${row.request!'-'}</td>
+                            <td>${row.response!'-'}</td>
                         </tr>
                     </#list>
                 </#if>
