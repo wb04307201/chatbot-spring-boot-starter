@@ -49,22 +49,23 @@
         </div>
     </form>
     <div class="row">
-        <div class="col">
-            <table class="table table-bordered table-striped">
+        <div class="col-12" style="overflow-x: auto">
+            <table class="table table-striped table-border">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">平台</th>
                     <th scope="col">别名</th>
-                    <th scope="col" style="width:30%">请求</th>
-                    <th scope="col" style="width:30%">响应</th>
+                    <th scope="col">请求</th>
+                    <th scope="col">响应</th>
                 </tr>
                 </thead>
                 <tbody>
                 <#if list?? && (list?size > 0)>
                     <#list list as row>
                         <tr>
-                            <th scope="row">${row.id}</th>
+                            <#--<th scope="row">${row.id}</th>-->
+                            <th scope="row">${row_index + 1}</th>
                             <td>${row.alias!'-'}</td>
                             <td>${row.type!'-'}</td>
                             <td>${row.request!'-'}</td>

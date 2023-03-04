@@ -39,6 +39,5 @@ public class MemStorageServiceImpl implements IStorageService {
 
     @Override
     public void init() {
-
     }
 }

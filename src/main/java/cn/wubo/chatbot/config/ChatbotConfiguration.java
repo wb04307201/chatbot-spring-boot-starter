@@ -31,7 +31,9 @@ public class ChatbotConfiguration {
     public IStorageService storageService() {
         try {
             Class<?> clazz = Class.forName(properties.getStorageClass());
-            return (IStorageService) clazz.newInstance();
+            IStorageService storageService = (IStorageService) clazz.newInstance();
+            storageService.init();
+            return storageService;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new ChatbotRuntimeException(e.getMessage(), e);
         }
