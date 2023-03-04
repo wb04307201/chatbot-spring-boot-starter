@@ -77,7 +77,7 @@ chatbot:
         secret: secret
 ```
 
-## 第五步 根据需要注入 并调用发送
+## 第五步 注入IChatbotService并调用发送信息
 
 ```java
 @RestController
@@ -132,6 +132,8 @@ public class DemoController {
 }
 ```
 
+目前支持的类型与转换格式对照如下表
+
 | chatbot       | 钉钉  | 微信   | 飞书   |
 |---------------|-----|------|------|
 | SubLine.text  | 文字  | 文字   | text |
@@ -140,5 +142,80 @@ public class DemoController {
 | SubLine.quote | 引用  | 引用文字 | text |
 | SubLine.bold  | 加粗  | 加粗   | text |
 
-发送的消息可通过http://127.0.0.1:8100/chat/robot/list进行查看
-![img_1.png](img_1.png)
+发送的消息可通过http://ip:端口/chat/robot/list进行查看  
+注意：如配置了context-path需要在地址中对应添加  
+![img.png](img.png)
+
+
+## 可自定义发送信息存储
+继承IStorageService并事项方法，例如
+```java
+public class H2StorageServiceImpl implements IStorageService {
+
+    private static final String HISTORY = "chat_robot_history";
+
+    private static ConnectionPool connectionPool = new ConnectionPool(new ConnectionParam());
+
+    @Override
+    public ChatbotHistory save(ChatbotHistory chatbotHistory) {
+        try {
+            Connection conn = connectionPool.getConnection();
+            if (!StringUtils.hasLength(chatbotHistory.getId())) {
+                chatbotHistory.setId(UUID.randomUUID().toString());
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.insertSql(HISTORY, chatbotHistory), new HashMap<>());
+            } else {
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.updateByIdSql(HISTORY, chatbotHistory), new HashMap<>());
+            }
+            connectionPool.returnConnection(conn);
+        } catch (SQLException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return chatbotHistory;
+    }
+
+    @Override
+    public List<ChatbotHistory> list(ChatbotHistory chatbotHistory) {
+        try {
+            Connection conn = connectionPool.getConnection();
+            String sql = ModelSqlUtils.selectSql(HISTORY, new ChatbotHistory());
+
+            List<String> condition = new ArrayList<>();
+            if (StringUtils.hasLength(chatbotHistory.getType()))
+                condition.add(" type = '" + chatbotHistory.getType() + "'");
+            if (StringUtils.hasLength(chatbotHistory.getAlias()))
+                condition.add(" alias like '%" + chatbotHistory.getAlias() + "%'");
+            if (StringUtils.hasLength(chatbotHistory.getRequest()))
+                condition.add(" request like '%" + chatbotHistory.getRequest() + "%'");
+            if (StringUtils.hasLength(chatbotHistory.getResponse()))
+                condition.add(" response like '%" + chatbotHistory.getResponse() + "%'");
+
+            if (!condition.isEmpty()) sql = sql + " where " + String.join("and", condition);
+
+            List<ChatbotHistory> res = ExecuteSqlUtils.executeQuery(conn, sql, new HashMap<>(), ChatbotHistory.class);
+            connectionPool.returnConnection(conn);
+            return res;
+        } catch (SQLException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void init() {
+        try {
+            Connection conn = connectionPool.getConnection();
+            if (!ExecuteSqlUtils.isTableExists(conn, HISTORY, connectionPool.getDbType())) {
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.createSql(HISTORY, new ChatbotHistory()), new HashMap<>());
+            }
+        } catch (SQLException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+
+并添加配置指向类
+```yaml
+chatbot:
+  config:
+    storageClass: cn.wubo.chatbot.demo.H2StorageServiceImpl
+```
