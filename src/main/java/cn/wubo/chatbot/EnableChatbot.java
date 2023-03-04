@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 @Documented
-@Import({ChatbotHttpClientConfig.class,ChatbotConfiguration.class})
+@Import({ChatbotHttpClientConfig.class, ChatbotConfiguration.class})
 public @interface EnableChatbot {
 }
