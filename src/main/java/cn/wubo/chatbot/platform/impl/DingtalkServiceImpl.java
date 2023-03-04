@@ -25,6 +25,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -124,6 +125,7 @@ public class DingtalkServiceImpl implements ISendService {
             chatbotHistory.setType(ChatbotType.DINGTALK.getType());
             chatbotHistory.setRequest(JSON.toJSONString(request));
             chatbotHistory.setAlias(chatbotInfo.getAlias());
+            chatbotHistory.setCreateTime(new Date());
             storageService.save(chatbotHistory);
             DingTalkClient client = client(chatbotInfo);
             OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);

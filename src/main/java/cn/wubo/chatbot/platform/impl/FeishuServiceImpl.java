@@ -26,6 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 
 @Slf4j
@@ -132,6 +133,7 @@ public class FeishuServiceImpl implements ISendService {
         chatbotHistory.setType(ChatbotType.FEISHU.getType());
         chatbotHistory.setRequest(JSON.toJSONString(body));
         chatbotHistory.setAlias(chatbotInfo.getAlias());
+        chatbotHistory.setCreateTime(new Date());
         storageService.save(chatbotHistory);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");

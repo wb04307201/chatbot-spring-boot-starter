@@ -16,6 +16,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -92,6 +93,7 @@ public class WeixinServiceImpl implements ISendService {
         chatbotHistory.setType(ChatbotType.WEIXIN.getType());
         chatbotHistory.setRequest(JSON.toJSONString(body));
         chatbotHistory.setAlias(chatbotInfo.getAlias());
+        chatbotHistory.setCreateTime(new Date());
         storageService.save(chatbotHistory);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");

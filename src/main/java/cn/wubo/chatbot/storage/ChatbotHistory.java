@@ -11,5 +11,5 @@ public class ChatbotHistory {
     private String request;
     private String response;
     private String alias;
-    private Date createTime = new Date();
+    private Date createTime;
 }
