@@ -120,12 +120,12 @@ public class DingtalkServiceImpl implements ISendService {
 
     private String execute(ChatbotInfo chatbotInfo, OapiRobotSendRequest request) {
         try {
-            DingTalkClient client = client(chatbotInfo);
             ChatbotHistory chatbotHistory = new ChatbotHistory();
             chatbotHistory.setType(ChatbotType.DINGTALK.getType());
             chatbotHistory.setRequest(JSON.toJSONString(request));
             chatbotHistory.setAlias(chatbotInfo.getAlias());
             storageService.save(chatbotHistory);
+            DingTalkClient client = client(chatbotInfo);
             OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);
             String response = JSON.toJSONString(oapiRobotSendResponse);
             chatbotHistory.setResponse(response);
