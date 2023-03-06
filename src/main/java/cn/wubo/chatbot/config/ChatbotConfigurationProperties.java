@@ -11,6 +11,6 @@ import java.util.List;
 @ConfigurationProperties(prefix = "chatbot.config")
 public class ChatbotConfigurationProperties {
 
-    private String storageClass = "cn.wubo.chatbot.record.impl.MemChatbotRecordImpl";
+    private String chatbotRecord = "cn.wubo.chatbot.record.impl.MemChatbotRecordImpl";
     private List<ChatbotInfo> chatbotInfo = new ArrayList<>();
 }

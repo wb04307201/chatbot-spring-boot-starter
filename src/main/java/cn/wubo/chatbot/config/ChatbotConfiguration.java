@@ -30,7 +30,7 @@ public class ChatbotConfiguration {
     @Bean
     public IChatbotRecord storageService() {
         try {
-            Class<?> clazz = Class.forName(properties.getStorageClass());
+            Class<?> clazz = Class.forName(properties.getChatbotRecord());
             IChatbotRecord storageService = (IChatbotRecord) clazz.newInstance();
             storageService.init();
             return storageService;
