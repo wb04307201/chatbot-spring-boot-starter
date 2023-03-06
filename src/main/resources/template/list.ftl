@@ -66,8 +66,8 @@
                         <tr>
                             <#--<th scope="row">${row.id}</th>-->
                             <th scope="row">${row_index + 1}</th>
-                            <td>${row.alias!'-'}</td>
                             <td>${row.type!'-'}</td>
+                            <td>${row.alias!'-'}</td>
                             <td>${row.request!'-'}</td>
                             <td>${row.response!'-'}</td>
                         </tr>
