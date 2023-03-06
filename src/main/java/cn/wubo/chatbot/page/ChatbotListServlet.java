@@ -1,8 +1,8 @@
 package cn.wubo.chatbot.page;
 
 import cn.wubo.chatbot.exception.ChatbotRuntimeException;
-import cn.wubo.chatbot.storage.ChatbotHistory;
-import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.record.ChatbotHistory;
+import cn.wubo.chatbot.record.IChatbotRecord;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class ChatbotListServlet extends BaseServlet {
 
     @Autowired
-    private IStorageService storageService;
+    private IChatbotRecord storageService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

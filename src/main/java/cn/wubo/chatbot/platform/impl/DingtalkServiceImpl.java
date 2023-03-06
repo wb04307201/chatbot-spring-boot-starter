@@ -1,12 +1,12 @@
 package cn.wubo.chatbot.platform.impl;
 
 import cn.wubo.chatbot.exception.DingtalkRuntimeException;
-import cn.wubo.chatbot.storage.ChatbotHistory;
+import cn.wubo.chatbot.record.ChatbotHistory;
 import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.core.ChatbotType;
 import cn.wubo.chatbot.message.*;
 import cn.wubo.chatbot.platform.ISendService;
-import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.record.IChatbotRecord;
 import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
@@ -35,7 +35,7 @@ import java.util.stream.IntStream;
 public class DingtalkServiceImpl implements ISendService {
 
     @Autowired
-    IStorageService storageService;
+    IChatbotRecord storageService;
 
     @Override
     public Boolean support(ChatbotType chatbotType) {

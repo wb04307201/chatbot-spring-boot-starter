@@ -1,4 +1,4 @@
-package cn.wubo.chatbot.storage;
+package cn.wubo.chatbot.record;
 
 import lombok.Data;
 

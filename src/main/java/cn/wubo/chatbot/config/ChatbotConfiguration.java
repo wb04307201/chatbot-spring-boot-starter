@@ -7,7 +7,7 @@ import cn.wubo.chatbot.platform.impl.FeishuServiceImpl;
 import cn.wubo.chatbot.platform.impl.WeixinServiceImpl;
 import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
 import cn.wubo.chatbot.page.ChatbotListServlet;
-import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.record.IChatbotRecord;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -28,10 +28,10 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public IStorageService storageService() {
+    public IChatbotRecord storageService() {
         try {
             Class<?> clazz = Class.forName(properties.getStorageClass());
-            IStorageService storageService = (IStorageService) clazz.newInstance();
+            IChatbotRecord storageService = (IChatbotRecord) clazz.newInstance();
             storageService.init();
             return storageService;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

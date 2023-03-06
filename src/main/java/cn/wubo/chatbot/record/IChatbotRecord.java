@@ -1,8 +1,8 @@
-package cn.wubo.chatbot.storage;
+package cn.wubo.chatbot.record;
 
 import java.util.List;
 
-public interface IStorageService {
+public interface IChatbotRecord {
 
     /**
      * 保存
