@@ -217,5 +217,5 @@ public class H2StorageServiceImpl implements IStorageService {
 ```yaml
 chatbot:
   config:
-    storageClass: cn.wubo.chatbot.demo.H2StorageServiceImpl
+    chatbot-record: cn.wubo.chatbot.demo.H2StorageServiceImpl
 ```
