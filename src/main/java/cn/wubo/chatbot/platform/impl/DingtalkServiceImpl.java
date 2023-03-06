@@ -1,12 +1,12 @@
 package cn.wubo.chatbot.platform.impl;
 
 import cn.wubo.chatbot.exception.DingtalkRuntimeException;
-import cn.wubo.chatbot.storage.ChatbotHistory;
+import cn.wubo.chatbot.record.ChatbotHistory;
 import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.core.ChatbotType;
 import cn.wubo.chatbot.message.*;
 import cn.wubo.chatbot.platform.ISendService;
-import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.record.IChatbotRecord;
 import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
@@ -34,8 +34,11 @@ import java.util.stream.IntStream;
 @Slf4j
 public class DingtalkServiceImpl implements ISendService {
 
-    @Autowired
-    IStorageService storageService;
+    IChatbotRecord chatbotRecord;
+
+    public DingtalkServiceImpl(IChatbotRecord chatbotRecord) {
+        this.chatbotRecord = chatbotRecord;
+    }
 
     @Override
     public Boolean support(ChatbotType chatbotType) {
@@ -126,12 +129,12 @@ public class DingtalkServiceImpl implements ISendService {
             chatbotHistory.setRequest(JSON.toJSONString(request));
             chatbotHistory.setAlias(chatbotInfo.getAlias());
             chatbotHistory.setCreateTime(new Date());
-            storageService.save(chatbotHistory);
+            chatbotRecord.save(chatbotHistory);
             DingTalkClient client = client(chatbotInfo);
             OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);
             String response = JSON.toJSONString(oapiRobotSendResponse);
             chatbotHistory.setResponse(response);
-            storageService.save(chatbotHistory);
+            chatbotRecord.save(chatbotHistory);
             return response;
         } catch (ApiException e) {
             throw new DingtalkRuntimeException(e.getMessage(), e);

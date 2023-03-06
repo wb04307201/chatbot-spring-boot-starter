@@ -148,9 +148,9 @@ public class DemoController {
 
 
 ## 可自定义发送信息存储
-继承IStorageService并事项方法，例如
+继承IChatbotRecord并事项方法，例如
 ```java
-public class H2StorageServiceImpl implements IStorageService {
+public class H2ChatbotRecordImpl implements IChatbotRecord {
 
     private static final String HISTORY = "chat_robot_history";
 
@@ -217,5 +217,5 @@ public class H2StorageServiceImpl implements IStorageService {
 ```yaml
 chatbot:
   config:
-    storageClass: cn.wubo.chatbot.demo.H2StorageServiceImpl
+    chatbot-record: cn.wubo.chatbot.demo.H2ChatbotRecordImpl
 ```

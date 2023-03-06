@@ -1,14 +1,15 @@
 package cn.wubo.chatbot.page;
 
 import cn.wubo.chatbot.exception.ChatbotRuntimeException;
-import cn.wubo.chatbot.storage.ChatbotHistory;
-import cn.wubo.chatbot.storage.IStorageService;
+import cn.wubo.chatbot.record.ChatbotHistory;
+import cn.wubo.chatbot.record.IChatbotRecord;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,10 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class ChatbotListServlet extends BaseServlet {
+public class ChatbotListServlet extends HttpServlet {
 
-    @Autowired
-    private IStorageService storageService;
+    private IChatbotRecord storageService;
+
+    public ChatbotListServlet(IChatbotRecord storageService) {
+        this.storageService = storageService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

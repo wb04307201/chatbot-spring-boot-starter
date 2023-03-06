@@ -1,7 +1,6 @@
 package cn.wubo.chatbot;
 
 import cn.wubo.chatbot.config.ChatbotConfiguration;
-import cn.wubo.chatbot.config.ChatbotHttpClientConfig;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -12,6 +11,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 @Documented
-@Import({ChatbotHttpClientConfig.class, ChatbotConfiguration.class})
+@Import({ChatbotConfiguration.class})
 public @interface EnableChatbot {
 }
