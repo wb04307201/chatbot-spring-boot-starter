@@ -34,8 +34,11 @@ import java.util.stream.IntStream;
 @Slf4j
 public class DingtalkServiceImpl implements ISendService {
 
-    @Autowired
-    IChatbotRecord storageService;
+    IChatbotRecord chatbotRecord;
+
+    public DingtalkServiceImpl(IChatbotRecord chatbotRecord) {
+        this.chatbotRecord = chatbotRecord;
+    }
 
     @Override
     public Boolean support(ChatbotType chatbotType) {
@@ -126,12 +129,12 @@ public class DingtalkServiceImpl implements ISendService {
             chatbotHistory.setRequest(JSON.toJSONString(request));
             chatbotHistory.setAlias(chatbotInfo.getAlias());
             chatbotHistory.setCreateTime(new Date());
-            storageService.save(chatbotHistory);
+            chatbotRecord.save(chatbotHistory);
             DingTalkClient client = client(chatbotInfo);
             OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);
             String response = JSON.toJSONString(oapiRobotSendResponse);
             chatbotHistory.setResponse(response);
-            storageService.save(chatbotHistory);
+            chatbotRecord.save(chatbotHistory);
             return response;
         } catch (ApiException e) {
             throw new DingtalkRuntimeException(e.getMessage(), e);

@@ -32,12 +32,13 @@ import java.util.Date;
 @Slf4j
 public class FeishuServiceImpl implements ISendService {
 
-    @Autowired
-    IChatbotRecord storageService;
-
-    @Autowired
-    @Qualifier(value = "chatbotRestTemplate")
+    IChatbotRecord chatbotRecord;
     RestTemplate restTemplate;
+
+    public FeishuServiceImpl(IChatbotRecord chatbotRecord, RestTemplate restTemplate) {
+        this.chatbotRecord = chatbotRecord;
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public Boolean support(ChatbotType chatbotType) {
@@ -134,13 +135,13 @@ public class FeishuServiceImpl implements ISendService {
         chatbotHistory.setRequest(JSON.toJSONString(body));
         chatbotHistory.setAlias(chatbotInfo.getAlias());
         chatbotHistory.setCreateTime(new Date());
-        storageService.save(chatbotHistory);
+        chatbotRecord.save(chatbotHistory);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
         HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
         String response = restTemplate.postForObject(String.format(chatbotInfo.getChatbotType().getWebhook(), chatbotInfo.getToken()), request, String.class);
         chatbotHistory.setResponse(response);
-        storageService.save(chatbotHistory);
+        chatbotRecord.save(chatbotHistory);
         return response;
     }
 }

@@ -14,19 +14,18 @@ import java.util.List;
 public class ChatbotServiceImpl implements IChatbotService {
 
     ChatbotConfigurationProperties properties;
+    List<ISendService> sendServices;
 
-    public ChatbotServiceImpl(ChatbotConfigurationProperties properties) {
+    public ChatbotServiceImpl(ChatbotConfigurationProperties properties,List<ISendService> sendServices) {
         this.properties = properties;
+        this.sendServices = sendServices;
     }
-
-    @Autowired
-    List<ISendService> services;
 
     @Override
     public List<String> send(RequestContent content) {
         List<String> strings = new ArrayList<>();
         properties.getChatbotInfo().forEach(chatbotInfo -> {
-            services.stream()
+            sendServices.stream()
                     .filter(service -> service.support(chatbotInfo.getChatbotType()) && content.getChatbotType().isEmpty() || content.getChatbotType().stream().anyMatch(service::support))
                     .filter(service -> content.getAlias().isEmpty() || content.getAlias().stream().anyMatch(e -> chatbotInfo.getAlias().equals(e)))
                     .findAny()
