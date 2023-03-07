@@ -141,7 +141,7 @@ public class DemoController {
 | SubLine.quote | 引用  | 引用文字 | text |
 | SubLine.bold  | 加粗  | 加粗   | text |
 
-## 其他1：发送记录内置界面
+## 其他1：内置界面
 发送的消息可通过http://ip:端口/chat/robot/list进行查看  
 注意：如配置了context-path需要在地址中对应添加  
 ![img.png](img.png)
