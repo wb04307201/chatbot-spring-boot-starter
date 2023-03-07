@@ -146,7 +146,7 @@ public class DemoController {
 注意：如配置了context-path需要在地址中对应添加  
 ![img.png](img.png)
 
-## 其他2：可通过配置自定义记录存储
+## 其他2：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
 继承IChatbotRecord并实现方法，例如
 ```java
 public class H2ChatbotRecordImpl implements IChatbotRecord {
