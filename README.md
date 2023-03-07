@@ -43,7 +43,6 @@
 ## 第三步 在启动类上加上`@EnableChatbot`注解
 
 ```java
-
 @EnableChatbot
 @SpringBootApplication
 public class ChatbotDemoApplication {
@@ -142,13 +141,13 @@ public class DemoController {
 | SubLine.quote | 引用  | 引用文字 | text |
 | SubLine.bold  | 加粗  | 加粗   | text |
 
+## 其他1：发送记录内置界面
 发送的消息可通过http://ip:端口/chat/robot/list进行查看  
 注意：如配置了context-path需要在地址中对应添加  
 ![img.png](img.png)
 
-
-## 可自定义发送信息存储
-继承IChatbotRecord并事项方法，例如
+## 其他2：可通过配置自定义记录存储
+继承IChatbotRecord并实现方法，例如
 ```java
 public class H2ChatbotRecordImpl implements IChatbotRecord {
 
