@@ -89,7 +89,7 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean<HttpServlet> listServlet(IChatbotRecord storageService) {
+    public ServletRegistrationBean<HttpServlet> chatBotListServlet(IChatbotRecord storageService) {
         ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
         registration.setServlet(new ChatbotListServlet(storageService));
         registration.addUrlMappings("/chat/robot/list");
