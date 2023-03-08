@@ -55,6 +55,7 @@ public class ChatbotConfiguration {
      */
     @DurationUnit(ChronoUnit.SECONDS)
     private final Duration connectTimeout = Duration.ofSeconds(30);
+
     /**
      * 读超时时间
      */
