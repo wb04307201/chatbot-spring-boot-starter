@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
-#### 对如下移动办公系统的群机器人API做了一层封装，让使用更简单便捷。
+#### 移动办公系统的群机器人API中间件，统一消息格式让使用更简单便捷。
 
 > - [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
 > - [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
