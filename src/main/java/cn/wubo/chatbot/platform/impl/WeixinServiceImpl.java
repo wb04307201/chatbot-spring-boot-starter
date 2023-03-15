@@ -61,10 +61,6 @@ public class WeixinServiceImpl implements ISendService {
         return post(chatbotInfo, jo.toJSONString());
     }
 
-    public String send(ChatbotInfo chatbotInfo, String request) {
-        return post(chatbotInfo, request);
-    }
-
     private String build(MarkdownContent content) {
         return content.getLines().stream()
                 .map(line -> {

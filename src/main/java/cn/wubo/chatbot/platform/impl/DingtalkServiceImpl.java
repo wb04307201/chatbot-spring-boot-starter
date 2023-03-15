@@ -15,7 +15,6 @@ import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.Mac;
@@ -45,6 +44,7 @@ public class DingtalkServiceImpl implements ISendService {
         return chatbotType.equals(ChatbotType.DINGTALK);
     }
 
+    @Override
     public String sendText(ChatbotInfo chatbotInfo, TextContent content) {
         OapiRobotSendRequest request = request(content.isAll(), null, null);
         request.setMsgtype("text");
@@ -54,6 +54,7 @@ public class DingtalkServiceImpl implements ISendService {
         return execute(chatbotInfo, request);
     }
 
+    @Override
     public String sendMarkDown(ChatbotInfo chatbotInfo, MarkdownContent content) {
         OapiRobotSendRequest request = request(content.isAll(), null, null);
         request.setMsgtype("markdown");
@@ -61,10 +62,6 @@ public class DingtalkServiceImpl implements ISendService {
         markdown.setTitle(content.getTitle());
         markdown.setText(build(content));
         request.setMarkdown(markdown);
-        return execute(chatbotInfo, request);
-    }
-
-    public String send(ChatbotInfo chatbotInfo, OapiRobotSendRequest request) {
         return execute(chatbotInfo, request);
     }
 

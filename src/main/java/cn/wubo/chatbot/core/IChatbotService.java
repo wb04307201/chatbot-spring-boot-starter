@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IChatbotService {
     List<String> send(RequestContent content);
+    void add(ChatbotInfo chatbotInfo);
+    void removeByAlias(String alias);
 }

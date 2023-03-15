@@ -13,4 +13,5 @@ public class ChatbotConfigurationProperties {
 
     private String chatbotRecord = "cn.wubo.chatbot.record.impl.MemChatbotRecordImpl";
     private List<ChatbotInfo> chatbotInfo = new ArrayList<>();
+
 }

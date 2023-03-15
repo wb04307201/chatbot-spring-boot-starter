@@ -1,17 +1,15 @@
 package cn.wubo.chatbot.config;
 
 import cn.wubo.chatbot.core.IChatbotService;
+import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
 import cn.wubo.chatbot.exception.ChatbotRuntimeException;
+import cn.wubo.chatbot.page.ChatbotListServlet;
 import cn.wubo.chatbot.platform.ISendService;
 import cn.wubo.chatbot.platform.impl.DingtalkServiceImpl;
 import cn.wubo.chatbot.platform.impl.FeishuServiceImpl;
 import cn.wubo.chatbot.platform.impl.WeixinServiceImpl;
-import cn.wubo.chatbot.core.impl.ChatbotServiceImpl;
-import cn.wubo.chatbot.page.ChatbotListServlet;
 import cn.wubo.chatbot.record.IChatbotRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -24,7 +22,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServlet;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -86,7 +83,7 @@ public class ChatbotConfiguration {
 
     @Bean
     public IChatbotService chatbotService(ChatbotConfigurationProperties properties, List<ISendService> sendServices) {
-        return new ChatbotServiceImpl(properties, sendServices);
+        return new ChatbotServiceImpl(properties.getChatbotInfo(), sendServices);
     }
 
     @Bean
