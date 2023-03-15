@@ -70,14 +70,6 @@ public class FeishuServiceImpl implements ISendService {
         return post(chatbotInfo, jo.toJSONString());
     }
 
-    public String send(ChatbotInfo chatbotInfo, String request) {
-        JSONObject jo = request(chatbotInfo);
-        JSONObject.parseObject(request).forEach((k, v) -> {
-            jo.put(k, v);
-        });
-        return post(chatbotInfo, jo.toJSONString());
-    }
-
     private JSONArray build(MarkdownContent content) {
         JSONArray ja = new JSONArray();
         content.getLines().forEach(line -> {

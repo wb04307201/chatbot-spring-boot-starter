@@ -64,10 +64,6 @@ public class DingtalkServiceImpl implements ISendService {
         return execute(chatbotInfo, request);
     }
 
-    public String send(ChatbotInfo chatbotInfo, OapiRobotSendRequest request) {
-        return execute(chatbotInfo, request);
-    }
-
     private OapiRobotSendRequest request(Boolean atAll, List<String> mobiles, List<String> userIds) {
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
