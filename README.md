@@ -1,14 +1,14 @@
-# chatbot-spring-boot-starter 群机器人发送消息
+# chatbot-spring-boot-starter 群机器人 + 邮箱中间件
 
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
-#### 移动办公系统的群机器人API中间件，统一消息格式、平台群发让使用更简单便捷。
+#### 移动办公系统的群机器人 + 邮箱中间件，统一消息格式使消息群发更简单便捷。
 
 > - [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
 > - [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
 > - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
-> 只需要简单的配置和编码，即可将相同的消息发送到多个聊天群  
+> 只需要简单的配置和编码，即可将相同的消息发送到多个聊天群和邮箱  
 > 钉钉和飞书需要使用加签，并且维护配置中的secret  
 > 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
 > markdown(飞书对应为富文本)统一消息格式，发送时会按照对应的类型进行转换
@@ -43,6 +43,7 @@
 ## 第三步 在启动类上加上`@EnableChatbot`注解
 
 ```java
+
 @EnableChatbot
 @SpringBootApplication
 public class ChatbotDemoApplication {
@@ -74,11 +75,19 @@ chatbot:
         # webhook地址 https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxxxxxxxxx
         token: 为webhook地址中xxxxxxxxxxxxxxxxx部分
         secret: secret
+      - alias: mail-1
+        chatbot-type: mail
+        from: 发件邮箱
+        to: 收件邮箱1,收件邮箱2
+        host: stmp地址
+        username: 用户名
+        password: 密码
 ```
 
 ## 第五步 注入IChatbotService并调用发送信息
 
 ```java
+
 @RestController
 public class DemoController {
 
@@ -86,7 +95,7 @@ public class DemoController {
     IChatbotService chatbotService;
 
     @GetMapping(value = "/chat/robot/test")
-    public String send(){
+    public String send() {
         //发送到全部平台
         /*return chatbotService.send(
                 RequestContent.buildMarkdown()
@@ -114,15 +123,14 @@ public class DemoController {
                         .atAll(true)
         ).toString();*/
 
-        //发送到某个平台
+        //发送到某几个平台
         return chatbotService.send(
-                RequestContent.buildMarkdown().addAlias("dd-1")
-                        .addChatbotType(ChatbotType.DINGTALK)
+                RequestContent.buildMarkdown().addAlias("dd-1", "mail-1")
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1",1))
-                        .addLine(SubLine.title("这是标题2",2))
+                        .addLine(SubLine.title("这是标题1", 1))
+                        .addLine(SubLine.title("这是标题2", 2))
                         .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.link("这是一个链接", "https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
                         .addLine(SubLine.quote("这是一个引用"))
                         .addLine(SubLine.bold("这是一个加粗"))
                         .atAll(true)
@@ -133,21 +141,36 @@ public class DemoController {
 
 目前支持的类型与转换格式对照如下表
 
-| chatbot       | 钉钉  | 微信   | 飞书   |
-|---------------|-----|------|------|
-| SubLine.text  | 文字  | 文字   | text |
-| SubLine.title | 标题  | 标题   | text |
-| SubLine.link  | 链接  | 链接   | a    |
-| SubLine.quote | 引用  | 引用文字 | text |
-| SubLine.bold  | 加粗  | 加粗   | text |
+| chatbot       | 钉钉  | 微信   | 飞书   | 邮件           |
+|---------------|-----|------|------|--------------|
+| SubLine.text  | 文字  | 文字   | text | <p>          |
+| SubLine.title | 标题  | 标题   | text | <h1>~<h6>    |
+| SubLine.link  | 链接  | 链接   | a    | <a>          |
+| SubLine.quote | 引用  | 引用文字 | text | <blockquote> |
+| SubLine.bold  | 加粗  | 加粗   | text | <strong>     |
 
 ## 其他1：内置界面
+
 发送的消息可通过http://ip:端口/chat/robot/list进行查看  
 注意：如配置了context-path需要在地址中对应添加  
 ![img.png](img.png)
 
-## 其他2：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
+## 其他2：动态增减平台信息
+```java
+//可以通过如下方法添加平台信息
+chatbotService.addDingtalk
+chatbotService.addFeishu
+chatbotService.addWeixin
+chatbotService.addMail
+
+//可以通过如下方法删除平台信息
+chatbotService.removeByAlias
+```
+
+## 其他3：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
+
 继承IChatbotRecord并实现方法，例如
+
 ```java
 public class H2ChatbotRecordImpl implements IChatbotRecord {
 
@@ -213,6 +236,7 @@ public class H2ChatbotRecordImpl implements IChatbotRecord {
 ```
 
 并添加配置指向类
+
 ```yaml
 chatbot:
   config:

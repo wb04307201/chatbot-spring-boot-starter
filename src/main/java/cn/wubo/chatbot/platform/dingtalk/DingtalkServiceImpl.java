@@ -1,8 +1,8 @@
-package cn.wubo.chatbot.platform.impl;
+package cn.wubo.chatbot.platform.dingtalk;
 
+import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.exception.DingtalkRuntimeException;
 import cn.wubo.chatbot.record.ChatbotHistory;
-import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.core.ChatbotType;
 import cn.wubo.chatbot.message.*;
 import cn.wubo.chatbot.platform.ISendService;
@@ -120,21 +120,24 @@ public class DingtalkServiceImpl implements ISendService {
     }
 
     private String execute(ChatbotInfo chatbotInfo, OapiRobotSendRequest request) {
+        ChatbotHistory chatbotHistory = new ChatbotHistory();
+        chatbotHistory.setType(ChatbotType.DINGTALK.getType());
+        chatbotHistory.setRequest(JSON.toJSONString(request));
+        chatbotHistory.setAlias(chatbotInfo.getAlias());
+        chatbotHistory.setCreateTime(new Date());
+        chatbotRecord.save(chatbotHistory);
+        String response = null;
         try {
-            ChatbotHistory chatbotHistory = new ChatbotHistory();
-            chatbotHistory.setType(ChatbotType.DINGTALK.getType());
-            chatbotHistory.setRequest(JSON.toJSONString(request));
-            chatbotHistory.setAlias(chatbotInfo.getAlias());
-            chatbotHistory.setCreateTime(new Date());
-            chatbotRecord.save(chatbotHistory);
             DingTalkClient client = client(chatbotInfo);
             OapiRobotSendResponse oapiRobotSendResponse = client.execute(request);
-            String response = JSON.toJSONString(oapiRobotSendResponse);
+            response = JSON.toJSONString(oapiRobotSendResponse);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            response = e.getMessage();
+        } finally {
             chatbotHistory.setResponse(response);
             chatbotRecord.save(chatbotHistory);
-            return response;
-        } catch (ApiException e) {
-            throw new DingtalkRuntimeException(e.getMessage(), e);
         }
+        return response;
     }
 }

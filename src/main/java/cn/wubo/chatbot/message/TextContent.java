@@ -3,6 +3,8 @@ package cn.wubo.chatbot.message;
 import cn.wubo.chatbot.core.ChatbotType;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 public class TextContent extends RequestContent {
     @Getter
     private String text;
@@ -17,8 +19,8 @@ public class TextContent extends RequestContent {
         return this;
     }
 
-    public TextContent addAlias(String alias) {
-        this.alias.add(alias);
+    public TextContent addAlias(String... alias) {
+        this.alias.add(Arrays.toString(alias));
         return this;
     }
 

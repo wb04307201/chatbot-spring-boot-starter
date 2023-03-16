@@ -4,6 +4,7 @@ import cn.wubo.chatbot.core.ChatbotType;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MarkdownContent extends RequestContent {
@@ -27,8 +28,8 @@ public class MarkdownContent extends RequestContent {
         return this;
     }
 
-    public MarkdownContent addAlias(String alias) {
-        this.alias.add(alias);
+    public MarkdownContent addAlias(String... alias) {
+        this.alias.addAll(Arrays.asList(alias));
         return this;
     }
 

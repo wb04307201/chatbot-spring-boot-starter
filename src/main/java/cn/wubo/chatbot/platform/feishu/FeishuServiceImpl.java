@@ -1,8 +1,8 @@
-package cn.wubo.chatbot.platform.impl;
+package cn.wubo.chatbot.platform.feishu;
 
+import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.exception.FeishuRuntimeException;
 import cn.wubo.chatbot.record.ChatbotHistory;
-import cn.wubo.chatbot.core.ChatbotInfo;
 import cn.wubo.chatbot.core.ChatbotType;
 import cn.wubo.chatbot.message.MarkdownContent;
 import cn.wubo.chatbot.message.SubLinkLine;
@@ -14,8 +14,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
@@ -128,12 +126,19 @@ public class FeishuServiceImpl implements ISendService {
         chatbotHistory.setAlias(chatbotInfo.getAlias());
         chatbotHistory.setCreateTime(new Date());
         chatbotRecord.save(chatbotHistory);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
-        HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
-        String response = restTemplate.postForObject(String.format(chatbotInfo.getChatbotType().getWebhook(), chatbotInfo.getToken()), request, String.class);
-        chatbotHistory.setResponse(response);
-        chatbotRecord.save(chatbotHistory);
+        String response = null;
+        try {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
+            HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
+            response = restTemplate.postForObject(String.format(chatbotInfo.getChatbotType().getWebhook(), chatbotInfo.getToken()), request, String.class);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            response = e.getMessage();
+        } finally {
+            chatbotHistory.setResponse(response);
+            chatbotRecord.save(chatbotHistory);
+        }
         return response;
     }
 }
