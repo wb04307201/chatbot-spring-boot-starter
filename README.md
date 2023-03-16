@@ -160,12 +160,12 @@ public class DemoController {
 ```java
 //可以通过如下方法添加平台信息
 chatbotService.addDingtalk
-        chatbotService.addFeishu
-        chatbotService.addWeixin
-        chatbotService.addMail
+chatbotService.addFeishu
+chatbotService.addWeixin
+chatbotService.addMail
 
 //可以通过如下方法删除平台信息
-        chatbotService.removeByAlias
+chatbotService.removeByAlias
 ```
 
 ## 其他3：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
