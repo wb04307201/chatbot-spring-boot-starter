@@ -1,17 +1,17 @@
-# chatbot-spring-boot-starter 群机器人 + 邮箱中间件
+# chatbot-spring-boot-starter
 
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
-#### 移动办公系统的群机器人 + 邮箱中间件，统一消息格式使消息群发更简单便捷。
+> 一个消息群发中间件  
+> 只需要简单的配置和编码，即可将相同的消息发送到钉钉、飞书、企业微信聊天群以及邮箱  
+> 统一消息维护方式，发送时会按照对应的平台类型自动进行转换
 
-> - [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
-> - [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
-> - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
+- [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
+- [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
+- [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
-> 只需要简单的配置和编码，即可将相同的消息发送到多个聊天群和邮箱  
-> 钉钉和飞书需要使用加签，并且维护配置中的secret  
-> 目前支持两种消息模式 文本 和 markdown(飞书对应为富文本)  
-> markdown(飞书对应为富文本)统一消息格式，发送时会按照对应的类型进行转换
+> 钉钉和飞书需要使用加签，配置时需要维护secret  
+> 目前支持两种消息模式 **文本** 和 **markdown(飞书对应为富文本)**
 
 ## [代码示例](https://gitee.com/wb04307201/chatbot-demo)
 
@@ -156,15 +156,16 @@ public class DemoController {
 ![img.png](img.png)
 
 ## 其他2：动态增减平台信息
+
 ```java
 //可以通过如下方法添加平台信息
 chatbotService.addDingtalk
-chatbotService.addFeishu
-chatbotService.addWeixin
-chatbotService.addMail
+        chatbotService.addFeishu
+        chatbotService.addWeixin
+        chatbotService.addMail
 
 //可以通过如下方法删除平台信息
-chatbotService.removeByAlias
+        chatbotService.removeByAlias
 ```
 
 ## 其他3：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
