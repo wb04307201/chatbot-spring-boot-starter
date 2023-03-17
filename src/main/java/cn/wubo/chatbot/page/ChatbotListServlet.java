@@ -5,7 +5,6 @@ import cn.wubo.chatbot.record.ChatbotHistory;
 import cn.wubo.chatbot.record.IChatbotRecord;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
