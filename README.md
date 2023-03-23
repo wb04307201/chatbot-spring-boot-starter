@@ -141,13 +141,13 @@ public class DemoController {
 
 目前支持的类型与转换格式对照如下表
 
-| chatbot       | 钉钉  | 微信   | 飞书   | 邮件           |
-|---------------|-----|------|------|--------------|
-| SubLine.text  | 文字  | 文字   | text | <p>          |
-| SubLine.title | 标题  | 标题   | text | <h1>~<h6>    |
-| SubLine.link  | 链接  | 链接   | a    | <a>          |
-| SubLine.quote | 引用  | 引用文字 | text | <blockquote> |
-| SubLine.bold  | 加粗  | 加粗   | text | <strong>     |
+| chatbot       | 钉钉  | 微信   | 飞书   | 邮件                 |
+|---------------|-----|------|------|--------------------|
+| SubLine.text  | 文字  | 文字   | text | ```<p>```          |
+| SubLine.title | 标题  | 标题   | text | ```<h1>~<h6>```    |
+| SubLine.link  | 链接  | 链接   | a    | ```<a>```          |
+| SubLine.quote | 引用  | 引用文字 | text | ```<blockquote>``` |
+| SubLine.bold  | 加粗  | 加粗   | text | ```<strong>```     |
 
 ## 其他1：内置界面
 
