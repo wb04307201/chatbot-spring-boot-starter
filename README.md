@@ -11,7 +11,7 @@
 - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
 > 钉钉和飞书需要使用加签，配置时需要维护secret  
-> 目前支持两种消息模式 **文本** 和 **markdown(飞书对应为富文本)**
+> 目前支持两种消息模式 **文本** 和 **markdown(邮箱，飞书对应为富文本)**
 
 ## [代码示例](https://gitee.com/wb04307201/chatbot-demo)
 
@@ -92,7 +92,7 @@ chatbot:
 public class DemoController {
 
     @Autowired
-    IChatbotService chatbotService;
+    ChatbotService chatbotService;
 
     @GetMapping(value = "/chat/robot/test")
     public String send() {
