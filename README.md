@@ -100,12 +100,12 @@ public class DemoController {
         /*return chatbotService.send(
                 RequestContent.buildMarkdown()
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1",1))
-                        .addLine(SubLine.title("这是标题2",2))
-                        .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
-                        .addLine(SubLine.quote("这是一个引用"))
-                        .addLine(SubLine.bold("这是一个加粗"))
+                        .addLine(SubLine.title("这是一行标题1",1))
+                        .addLine(SubLine.title("这是一行标题2",2))
+                        .addLine(SubLine.text("这是一行文本"))
+                        .addLine(SubLine.link("这是一行链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.quote("这是一行引用"))
+                        .addLine(SubLine.bold("这是一行加粗"))
                         .atAll(true)
         ).toString();*/
 
@@ -114,12 +114,12 @@ public class DemoController {
                 RequestContent.buildMarkdown()
                         .addChatbotType(ChatbotType.DINGTALK)
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1",1))
-                        .addLine(SubLine.title("这是标题2",2))
-                        .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
-                        .addLine(SubLine.quote("这是一个引用"))
-                        .addLine(SubLine.bold("这是一个加粗"))
+                        .addLine(SubLine.title("这是一行标题1",1))
+                        .addLine(SubLine.title("这是一行标题2",2))
+                        .addLine(SubLine.text("这是一行文本"))
+                        .addLine(SubLine.link("这是一行链接","https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.quote("这是一行引用"))
+                        .addLine(SubLine.bold("这是一行加粗"))
                         .atAll(true)
         ).toString();*/
 
@@ -127,12 +127,12 @@ public class DemoController {
         return chatbotService.send(
                 RequestContent.buildMarkdown().addAlias("dd-1", "mail-1")
                         .title("测试群发")
-                        .addLine(SubLine.title("这是标题1", 1))
-                        .addLine(SubLine.title("这是标题2", 2))
-                        .addLine(SubLine.text("这是一个文本"))
-                        .addLine(SubLine.link("这是一个链接", "https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
-                        .addLine(SubLine.quote("这是一个引用"))
-                        .addLine(SubLine.bold("这是一个加粗"))
+                        .addLine(SubLine.title("这是一行标题1", 1))
+                        .addLine(SubLine.title("这是一行标题2", 2))
+                        .addLine(SubLine.text("这是一行文本"))
+                        .addLine(SubLine.link("这是一行链接", "https://gitee.com/wb04307201/chatbot-spring-boot-starter"))
+                        .addLine(SubLine.quote("这是一行引用"))
+                        .addLine(SubLine.bold("这是一行加粗"))
                         .atAll(true)
         ).toString();
     }
