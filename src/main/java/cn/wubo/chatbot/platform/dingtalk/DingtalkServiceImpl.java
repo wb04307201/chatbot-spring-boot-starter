@@ -99,7 +99,7 @@ public class DingtalkServiceImpl implements ISendService {
                             return line.getContent();
                     }
                 })
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n\n"));
     }
 
     private DingTalkClient client(ChatbotInfo chatbotInfo) {
