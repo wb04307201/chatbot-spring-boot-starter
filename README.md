@@ -3,7 +3,7 @@
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
 > 一个消息群发中间件  
-> 只需要简单的配置和编码，即可将相同的消息发送到钉钉、飞书、企业微信聊天群以及邮箱  
+> 只需要简单的配置和编码，即可将内容相同，格式相似的消息发送到钉钉、飞书、企业微信聊天群以及邮箱  
 > 统一消息维护方式，发送时会按照对应的平台类型自动进行转换
 
 - [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
@@ -11,7 +11,7 @@
 - [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
 > 钉钉和飞书需要使用加签，配置时需要维护secret  
-> 目前支持两种消息模式 **文本** 和 **markdown(飞书对应为富文本)**
+> 目前支持两种消息模式 **文本** 和 **markdown(飞书对应为富文本，邮箱对应为html)**
 
 ## [代码示例](https://gitee.com/wb04307201/chatbot-demo)
 
@@ -141,13 +141,13 @@ public class DemoController {
 
 目前支持的类型与转换格式对照如下表
 
-| chatbot       | 钉钉  | 微信   | 飞书   | 邮件           |
-|---------------|-----|------|------|--------------|
-| SubLine.text  | 文字  | 文字   | text | <p>          |
-| SubLine.title | 标题  | 标题   | text | <h1>~<h6>    |
-| SubLine.link  | 链接  | 链接   | a    | <a>          |
-| SubLine.quote | 引用  | 引用文字 | text | <blockquote> |
-| SubLine.bold  | 加粗  | 加粗   | text | <strong>     |
+| chatbot       | 钉钉 | 微信   | 飞书                | 邮件           |
+|---------------|----|------|-------------------|--------------|
+| SubLine.text  | 文字 | 文字   | text              | <p>          |
+| SubLine.title | 标题 | 标题   | text              | <h1>~<h6>    |
+| SubLine.link  | 链接 | 链接   | a                 | <a>          |
+| SubLine.quote | 引用 | 引用文字 | text              | <blockquote> |
+| SubLine.bold  | 加粗 | 加粗   | "style": ["bold"] | <strong>     |
 
 ## 其他1：内置界面
 

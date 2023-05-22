@@ -1,13 +1,14 @@
 package cn.wubo.chatbot.platform.feishu;
 
 import cn.wubo.chatbot.core.ChatbotInfo;
-import cn.wubo.chatbot.exception.FeishuRuntimeException;
-import cn.wubo.chatbot.record.ChatbotHistory;
 import cn.wubo.chatbot.core.ChatbotType;
+import cn.wubo.chatbot.exception.FeishuRuntimeException;
 import cn.wubo.chatbot.message.MarkdownContent;
+import cn.wubo.chatbot.message.SubBoldLine;
 import cn.wubo.chatbot.message.SubLinkLine;
 import cn.wubo.chatbot.message.TextContent;
 import cn.wubo.chatbot.platform.ISendService;
+import cn.wubo.chatbot.record.ChatbotHistory;
 import cn.wubo.chatbot.record.IChatbotRecord;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -79,10 +80,15 @@ public class FeishuServiceImpl implements ISendService {
                     jo.put("text", subLinkLine.getContent());
                     jo.put("href", subLinkLine.getLink());
                     break;
+                case BOLD:
+                    SubBoldLine SubBoldLine = (SubBoldLine) line;
+                    jo.put("tag", "text");
+                    jo.put("text", SubBoldLine.getContent());
+                    jo.put("style", new JSONArray().add("bold"));
+                    break;
                 case TEXT:
                 case TITLE:
                 case QUOTE:
-                case BOLD:
                 default:
                     jo.put("tag", "text");
                     jo.put("text", line.getContent());

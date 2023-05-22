@@ -80,7 +80,7 @@ public class WeixinServiceImpl implements ISendService {
                             return line.getContent();
                     }
                 })
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n\n"));
     }
 
     private String post(ChatbotInfo chatbotInfo, String body) {

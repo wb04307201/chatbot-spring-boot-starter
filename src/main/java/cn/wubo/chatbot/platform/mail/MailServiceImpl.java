@@ -69,7 +69,7 @@ public class MailServiceImpl implements ISendService {
                             return line.getContent();
                     }
                 })
-                .collect(Collectors.joining("\n")));
+                .collect(Collectors.joining("  ")));
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         return renderer.render(document);
     }
