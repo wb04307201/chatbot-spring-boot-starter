@@ -35,18 +35,6 @@ public class ChatbotConfiguration {
         this.properties = properties;
     }
 
-    @Bean
-    public IChatbotRecord storageService() {
-        try {
-            Class<?> clazz = Class.forName(properties.getChatbotRecord());
-            IChatbotRecord storageService = (IChatbotRecord) clazz.newInstance();
-            storageService.init();
-            return storageService;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new ChatbotRuntimeException(e.getMessage(), e);
-        }
-    }
-
     /**
      * 连接超时时间
      */
@@ -73,12 +61,13 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public List<ISendService> sendServices(IChatbotRecord storageService, @Qualifier(value = "chatbotRestTemplate") RestTemplate restTemplate) {
+    public List<ISendService> sendServices(List<IChatbotRecord> chatbotRecordList, @Qualifier(value = "chatbotRestTemplate") RestTemplate restTemplate) {
         CopyOnWriteArrayList<ISendService> sendServices = new CopyOnWriteArrayList<>();
-        sendServices.add(new DingtalkServiceImpl(storageService));
-        sendServices.add(new WeixinServiceImpl(storageService, restTemplate));
-        sendServices.add(new FeishuServiceImpl(storageService, restTemplate));
-        sendServices.add(new MailServiceImpl(storageService));
+        IChatbotRecord chatbotRecord = chatbotRecordList.stream().filter(obj -> obj.getClass().getName().equals(properties.getChatbotRecord())).findAny().orElseThrow(() -> new ChatbotRuntimeException(String.format("未找到%s对应的bean，无法加载IChatbotRecord！", properties.getChatbotRecord())));
+        sendServices.add(new DingtalkServiceImpl(chatbotRecord));
+        sendServices.add(new WeixinServiceImpl(chatbotRecord, restTemplate));
+        sendServices.add(new FeishuServiceImpl(chatbotRecord, restTemplate));
+        sendServices.add(new MailServiceImpl(chatbotRecord));
         return sendServices;
     }
 
@@ -88,9 +77,9 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean<HttpServlet> chatBotListServlet(IChatbotRecord storageService) {
+    public ServletRegistrationBean<HttpServlet> chatBotListServlet(List<IChatbotRecord> chatbotRecordList) {
         ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
-        registration.setServlet(new ChatbotListServlet(storageService));
+        registration.setServlet(new ChatbotListServlet(chatbotRecordList.stream().filter(obj -> obj.getClass().getName().equals(properties.getChatbotRecord())).findAny().orElseThrow(() -> new ChatbotRuntimeException(String.format("未找到%s对应的bean，无法加载IChatbotRecord！", properties.getChatbotRecord())))));
         registration.addUrlMappings("/chat/robot/list");
         return registration;
     }
