@@ -167,11 +167,12 @@ chatbotService.addMail
 chatbotService.removeByAlias
 ```
 
-## 其他3：实际使用中，可通过配置和实现接口方法将数据持久化到数据库中
+## 其他3：实际使用中，可通过配置和实现日志接口方法将数据持久化到数据库中
 
 继承IChatbotRecord并实现方法，例如
 
 ```java
+@Component
 public class H2ChatbotRecordImpl implements IChatbotRecord {
 
     private static final String HISTORY = "chat_robot_history";
