@@ -28,13 +28,11 @@
 ```
 
 ## 第二步 引入jar
-
 ```xml
-
 <dependency>
     <groupId>com.gitee.wb04307201</groupId>
     <artifactId>chatbot-spring-boot-starter</artifactId>
-    <version>版本</version>
+    <version>1.1.2</version>
 </dependency>
 ```
 版本请从[jitpack](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)或者当前仓库发行版获取
