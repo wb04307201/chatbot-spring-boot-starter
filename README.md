@@ -18,7 +18,6 @@
 ## 第一步 增加 JitPack 仓库
 
 ```xml
-
 <repositories>
     <repository>
         <id>jitpack.io</id>
