@@ -1,17 +1,17 @@
-# chatbot-spring-boot-starter
+# message-spring-boot-starter
 
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
-> 一个消息群发中间件  
-> 只需要简单的配置和编码，即可将相同的消息发送到钉钉、飞书、企业微信聊天群以及邮箱  
+> 一个消息中间件  
+> 只需要简单的配置和编码，即可通过钉钉自定义机器人、钉钉工作通知、飞书自定义机器人、企业微信群机器人以及邮箱发送相同的消息  
 > 统一消息维护方式，发送时会按照对应的平台类型自动进行转换
 
-- [钉钉](https://open.dingtalk.com/document/group/custom-robot-access)
-- [企业微信](https://developer.work.weixin.qq.com/document/path/91770)
-- [飞书](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
+- [钉钉自定义机器人](https://open.dingtalk.com/document/group/custom-robot-access)
+- [企业微信群机器人](https://developer.work.weixin.qq.com/document/path/91770)
+- [飞书自定义机器人](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
 
 > 钉钉和飞书需要使用加签，配置时需要维护secret  
-> 目前支持两种消息模式 **文本** 和 **markdown(飞书对应为富文本，邮箱对应为html)**
+> 目前支持两种消息模式 **文本** 和 **markdown(飞书自定义机器人转译成为富文本，邮箱转译成html)**
 
 ## [代码示例](https://gitee.com/wb04307201/chatbot-demo)
 
@@ -30,12 +30,12 @@
 ```xml
 <dependency>
     <groupId>com.gitee.wb04307201</groupId>
-    <artifactId>chatbot-spring-boot-starter</artifactId>
-    <version>1.1.2</version>
+    <artifactId>message-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
-## 第三步 在启动类上加上`@EnableChatbot`注解
+## 第三步 在启动类上加上`@EnableMessage`注解
 
 ```java
 
@@ -176,37 +176,37 @@ public class H2ChatbotRecordImpl implements IChatbotRecord {
     private static ConnectionPool connectionPool = new ConnectionPool(new ConnectionParam());
 
     @Override
-    public ChatbotHistory save(ChatbotHistory chatbotHistory) {
+    public ChatbotHistory save(ChatbotHistory messageRecord) {
         try {
             Connection conn = connectionPool.getConnection();
-            if (!StringUtils.hasLength(chatbotHistory.getId())) {
-                chatbotHistory.setId(UUID.randomUUID().toString());
-                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.insertSql(HISTORY, chatbotHistory), new HashMap<>());
+            if (!StringUtils.hasLength(messageRecord.getId())) {
+                messageRecord.setId(UUID.randomUUID().toString());
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.insertSql(HISTORY, messageRecord), new HashMap<>());
             } else {
-                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.updateByIdSql(HISTORY, chatbotHistory), new HashMap<>());
+                ExecuteSqlUtils.executeUpdate(conn, ModelSqlUtils.updateByIdSql(HISTORY, messageRecord), new HashMap<>());
             }
             connectionPool.returnConnection(conn);
         } catch (SQLException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return chatbotHistory;
+        return messageRecord;
     }
 
     @Override
-    public List<ChatbotHistory> list(ChatbotHistory chatbotHistory) {
+    public List<ChatbotHistory> list(ChatbotHistory messageRecord) {
         try {
             Connection conn = connectionPool.getConnection();
             String sql = ModelSqlUtils.selectSql(HISTORY, new ChatbotHistory());
 
             List<String> condition = new ArrayList<>();
-            if (StringUtils.hasLength(chatbotHistory.getType()))
-                condition.add(" type = '" + chatbotHistory.getType() + "'");
-            if (StringUtils.hasLength(chatbotHistory.getAlias()))
-                condition.add(" alias like '%" + chatbotHistory.getAlias() + "%'");
-            if (StringUtils.hasLength(chatbotHistory.getRequest()))
-                condition.add(" request like '%" + chatbotHistory.getRequest() + "%'");
-            if (StringUtils.hasLength(chatbotHistory.getResponse()))
-                condition.add(" response like '%" + chatbotHistory.getResponse() + "%'");
+            if (StringUtils.hasLength(messageRecord.getType()))
+                condition.add(" type = '" + messageRecord.getType() + "'");
+            if (StringUtils.hasLength(messageRecord.getAlias()))
+                condition.add(" alias like '%" + messageRecord.getAlias() + "%'");
+            if (StringUtils.hasLength(messageRecord.getRequest()))
+                condition.add(" request like '%" + messageRecord.getRequest() + "%'");
+            if (StringUtils.hasLength(messageRecord.getResponse()))
+                condition.add(" response like '%" + messageRecord.getResponse() + "%'");
 
             if (!condition.isEmpty()) sql = sql + " where " + String.join("and", condition);
 
@@ -237,5 +237,5 @@ public class H2ChatbotRecordImpl implements IChatbotRecord {
 ```yaml
 chatbot:
   config:
-    chatbot-record: cn.wubo.chatbot.demo.H2ChatbotRecordImpl
+    chatbot-record: cn.wubo.message.demo.H2ChatbotRecordImpl
 ```

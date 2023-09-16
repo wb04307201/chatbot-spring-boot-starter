@@ -23,10 +23,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- 钉钉 -->
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>alibaba-dingtalk-service-sdk</artifactId>
                 <version>2.0.0</version>
+            </dependency>
+            <!-- 飞书 -->
+            <dependency>
+                <groupId>com.larksuite.oapi</groupId>
+                <artifactId>oapi-sdk</artifactId>
+                <version>2.0.27</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
