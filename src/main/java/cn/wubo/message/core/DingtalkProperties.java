@@ -1,7 +1,7 @@
 package cn.wubo.message.core;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,10 @@ public class DingtalkProperties {
      * https://open.dingtalk.com/document/orgapp/custom-bot-to-send-group-chat-messages
      */
     @Data
+    @Builder
     public class CustomRobot extends MessageBase {
         private String accessToken;
         private String secret;
-        private List<String> atMobiles = new ArrayList<>();
-        private List<String> atUserIds = new ArrayList<>();
-        private Boolean isAll = Boolean.TRUE;
     }
 
     /**
@@ -35,7 +33,10 @@ public class DingtalkProperties {
      * https://open.dingtalk.com/document/orgapp/asynchronous-sending-of-enterprise-session-messages
      */
     @Data
-    public class Message {
-
+    @Builder
+    public class Message extends MessageBase {
+        private String appkey;
+        private String appsecret;
+        private Long agentId;
     }
 }

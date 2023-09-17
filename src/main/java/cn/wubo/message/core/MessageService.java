@@ -10,18 +10,17 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MessageService {
+    CopyOnWriteArrayList<MessageBase> aliases;
+    CopyOnWriteArrayList<ISendService<?>> sendServices;
 
-    CopyOnWriteArrayList<MessageInfo> infos;
-    CopyOnWriteArrayList<ISendService> sendServices;
-
-    public MessageService(List<MessageInfo> infos, List<ISendService> sendServices) {
-        this.infos = new CopyOnWriteArrayList<>(infos);
-        this.sendServices = new CopyOnWriteArrayList<>(sendServices);
+    public MessageService(CopyOnWriteArrayList<MessageBase> aliases, CopyOnWriteArrayList<ISendService<?>> sendServices) {
+        this.aliases = aliases;
+        this.sendServices = sendServices;
     }
 
-    public List<String> send(RequestContent content) {
+    public List<String> send(RequestContent<?> content) {
         List<String> strings = new ArrayList<>();
-        infos.forEach(info -> {
+        aliases.forEach(info -> {
             sendServices.stream()
                     .filter(service -> service.support(info.getMessageType()) && content.getMessageType().isEmpty() || content.getMessageType().stream().anyMatch(service::support))
                     .filter(service -> content.getAlias().isEmpty() || content.getAlias().stream().anyMatch(e -> info.getAlias().equals(e)))
@@ -35,49 +34,12 @@ public class MessageService {
         return strings;
     }
 
-    private void add(MessageInfo messageInfo) {
-        infos.stream().filter(e -> e.getAlias().equals(messageInfo.getAlias())).findAny().ifPresent(e -> infos.remove(e));
-        infos.add(messageInfo);
-    }
-
-    public void addDingtalk(String alias, String token, String secret) {
-        MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setAlias(alias);
-        messageInfo.setToken(token);
-        messageInfo.setSecret(secret);
-        messageInfo.setMessageType(MessageType.DINGTALK);
-        add(messageInfo);
-    }
-
-    public void addWeixin(String alias, String token) {
-        MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setAlias(alias);
-        messageInfo.setToken(token);
-        messageInfo.setMessageType(MessageType.WEIXIN);
-        add(messageInfo);
-    }
-
-    public void addFeishu(String alias, String token, String secret) {
-        MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setAlias(alias);
-        messageInfo.setToken(token);
-        messageInfo.setSecret(secret);
-        messageInfo.setMessageType(MessageType.FEISHU);
-        add(messageInfo);
-    }
-
-    public void addMail(String from, String to, String host, String username, String password) {
-        MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setFrom(from);
-        messageInfo.setTo(to);
-        messageInfo.setHost(host);
-        messageInfo.setUsername(username);
-        messageInfo.setPassword(password);
-        messageInfo.setMessageType(MessageType.MAIL);
-        add(messageInfo);
+    private void add(MessageBase messageBase) {
+        aliases.stream().filter(e -> e.getAlias().equals(messageBase.getAlias())).findAny().ifPresent(e -> aliases.remove(e));
+        aliases.add(messageBase);
     }
 
     public void removeByAlias(String alias) {
-        infos.stream().filter(e -> e.getAlias().equals(alias)).findAny().ifPresent(e -> infos.remove(e));
+        aliases.stream().filter(e -> e.getAlias().equals(alias)).findAny().ifPresent(e -> aliases.remove(e));
     }
 }

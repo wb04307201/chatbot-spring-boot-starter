@@ -5,5 +5,4 @@ import lombok.Data;
 @Data
 public class MessageBase {
     private String alias;
-    private String type;
 }

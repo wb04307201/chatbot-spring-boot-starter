@@ -7,6 +7,8 @@ import cn.wubo.message.record.IMessageRecordService;
 import cn.wubo.message.record.MessageRecord;
 import com.alibaba.fastjson.JSON;
 
+import java.util.Map;
+
 public abstract class AbstractSendService<T extends MessageBase> implements ISendService<T> {
     protected IMessageRecordService messageRecordService;
 
@@ -18,9 +20,9 @@ public abstract class AbstractSendService<T extends MessageBase> implements ISen
         MessageRecord messageRecord = this.beforeSend(JSON.toJSONString(content));
         String res;
         if (content instanceof MarkdownContent) {
-            res = doSendMarkdown(aliasProperties, (MarkdownContent) content);
+            res = sendMarkdown(aliasProperties, (MarkdownContent) content);
         } else if (content instanceof TextContent) {
-            res = doSendText(aliasProperties, (TextContent) content);
+            res = sendText(aliasProperties, (TextContent) content);
         } else {
             throw new RuntimeException("");
         }
@@ -29,11 +31,11 @@ public abstract class AbstractSendService<T extends MessageBase> implements ISen
         return res;
     }
 
-    public MessageRecord beforeSend(String content) {
+    private MessageRecord beforeSend(String content) {
         return null;
     }
 
-    public void afterSend(MessageRecord messageRecord) {
+    private void afterSend(MessageRecord messageRecord) {
 
     }
 }

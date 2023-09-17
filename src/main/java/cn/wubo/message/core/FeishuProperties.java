@@ -1,5 +1,6 @@
 package cn.wubo.message.core;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class FeishuProperties {
      * https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot
      */
     @Data
-    public class CustomRobot {
+    @Builder
+    public class CustomRobot extends MessageBase {
         private String hookid;
         private String secret;
     }
@@ -26,7 +28,9 @@ public class FeishuProperties {
      * https://open.feishu.cn/document/server-docs/im-v1/message/create
      */
     @Data
-    public class Message {
-
+    @Builder
+    public class Message extends MessageBase {
+        private String appId;
+        private String appSecret;
     }
 }
