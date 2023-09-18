@@ -1,35 +1,41 @@
 package cn.wubo.message.core;
 
-import cn.wubo.message.message.MarkdownContent;
 import cn.wubo.message.message.RequestContent;
-import cn.wubo.message.message.TextContent;
-import cn.wubo.message.platform.ISendService;
+import cn.wubo.message.platform.SendFactory;
+import cn.wubo.message.record.IMessageRecordService;
+import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Slf4j
 public class MessageService {
     CopyOnWriteArrayList<MessageBase> aliases;
-    CopyOnWriteArrayList<ISendService<?>> sendServices;
+    IMessageRecordService messageRecordService;
 
-    public MessageService(CopyOnWriteArrayList<MessageBase> aliases, CopyOnWriteArrayList<ISendService<?>> sendServices) {
-        this.aliases = aliases;
-        this.sendServices = sendServices;
+    public MessageService(List<MessageBase> aliases, IMessageRecordService messageRecordService) {
+        this.aliases = new CopyOnWriteArrayList<>(aliases);
+        this.messageRecordService = messageRecordService;
     }
 
     public List<String> send(RequestContent<?> content) {
         List<String> strings = new ArrayList<>();
-        aliases.forEach(info -> {
-            sendServices.stream()
-                    .filter(service -> service.support(info.getMessageType()) && content.getMessageType().isEmpty() || content.getMessageType().stream().anyMatch(service::support))
-                    .filter(service -> content.getAlias().isEmpty() || content.getAlias().stream().anyMatch(e -> info.getAlias().equals(e)))
-                    .forEach(service -> {
-                        if (content instanceof TextContent)
-                            strings.add(service.sendText(info, (TextContent) content));
-                        else if (content instanceof MarkdownContent)
-                            strings.add(service.sendMarkDown(info, (MarkdownContent) content));
-                    });
+        aliases.stream().filter(item -> {
+            if (content.getAlias().isEmpty()) return true;
+            else return content.getAlias().contains(item.getAlias());
+        }).filter(item -> {
+            if (content.getMessageType().isEmpty()) return true;
+            else return content.getMessageType().contains(MessageType.getMessageType(item));
+        }).forEach(item -> {
+            try {
+                strings.add(SendFactory.run(item, content, messageRecordService));
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                     IllegalAccessException e) {
+                log.error(e.getMessage(), e);
+                strings.add(e.getMessage());
+            }
         });
         return strings;
     }

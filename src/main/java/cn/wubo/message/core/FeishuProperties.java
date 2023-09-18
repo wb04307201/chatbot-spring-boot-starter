@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class FeishuProperties {
 
     private List<DingtalkProperties.CustomRobot> customRobot = new ArrayList<>();
@@ -18,7 +19,7 @@ public class FeishuProperties {
      */
     @Data
     @Builder
-    public class CustomRobot extends MessageBase {
+    public static class CustomRobot extends MessageBase {
         private String hookid;
         private String secret;
     }
@@ -29,7 +30,7 @@ public class FeishuProperties {
      */
     @Data
     @Builder
-    public class Message extends MessageBase {
+    public static class Message extends MessageBase {
         private String appId;
         private String appSecret;
     }

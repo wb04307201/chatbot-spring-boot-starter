@@ -69,10 +69,4 @@ public class ContentUtils {
     public static String toHTML(MarkdownContent content) {
         return HtmlRenderer.builder().build().render(Parser.builder().build().parse(toMarkdown(content, "  ")));
     }
-
-    public static void main(String[] args) {
-        MarkdownContent mc = RequestContent.buildMarkdown().addLine(SubLine.text("11111111")).addLine(SubLine.text("22222222"));
-        JSONArray ja = toPost(mc);
-        System.out.println(ja.toJSONString());
-    }
 }

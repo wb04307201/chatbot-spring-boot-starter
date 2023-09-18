@@ -13,7 +13,7 @@ public class MailProperties {
 
     @Data
     @Builder
-    public class Smtp extends MessageBase {
+    public static class Smtp extends MessageBase {
         private String host;
         private String from;
         private String username;

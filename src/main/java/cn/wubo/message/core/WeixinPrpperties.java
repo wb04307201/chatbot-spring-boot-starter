@@ -17,7 +17,7 @@ public class WeixinPrpperties {
      */
     @Data
     @Builder
-    public class CustomRobot extends MessageBase {
+    public static class CustomRobot extends MessageBase {
         private String key;
     }
 
@@ -27,7 +27,7 @@ public class WeixinPrpperties {
      */
     @Data
     @Builder
-    public class Message extends MessageBase {
+    public static class Message extends MessageBase {
         private String corpid;
         private String corpsecret;
         private String agentid;

@@ -23,7 +23,7 @@ public class DingtalkProperties {
      */
     @Data
     @Builder
-    public class CustomRobot extends MessageBase {
+    public static class CustomRobot extends MessageBase {
         private String accessToken;
         private String secret;
     }
@@ -34,7 +34,7 @@ public class DingtalkProperties {
      */
     @Data
     @Builder
-    public class Message extends MessageBase {
+    public static class Message extends MessageBase {
         private String appkey;
         private String appsecret;
         private Long agentId;
