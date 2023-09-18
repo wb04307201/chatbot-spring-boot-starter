@@ -23,7 +23,7 @@ public class MailSmtpServiceImpl extends AbstractSendService<MailProperties.Smtp
     @Override
     public String sendMarkdown(MailProperties.Smtp aliasProperties, MarkdownContent content) {
         try {
-            MailUtils.smtp(aliasProperties.getHost(), aliasProperties.getFrom(), (String) content.getParams().getMailSmtp().get("to"), aliasProperties.getUsername(), aliasProperties.getPassword(), content.getTitle(), ContentUtils.toHTML(content));
+            MailUtils.smtp(aliasProperties.getHost(), aliasProperties.getFrom(), (String) content.getContentParams(aliasProperties.getAlias()).getMailSmtp().get("to"), aliasProperties.getUsername(), aliasProperties.getPassword(), content.getTitle(), ContentUtils.toHTML(content));
             return "success";
         } catch (MessagingException e) {
             log.error(e.getMessage(), e);
@@ -34,7 +34,7 @@ public class MailSmtpServiceImpl extends AbstractSendService<MailProperties.Smtp
     @Override
     public String sendText(MailProperties.Smtp aliasProperties, TextContent content) {
         try {
-            MailUtils.smtp(aliasProperties.getHost(), aliasProperties.getFrom(), (String) content.getParams().getMailSmtp().get("to"), aliasProperties.getUsername(), aliasProperties.getPassword(), null, content.getText());
+            MailUtils.smtp(aliasProperties.getHost(), aliasProperties.getFrom(), (String) content.getContentParams(aliasProperties.getAlias()).getMailSmtp().get("to"), aliasProperties.getUsername(), aliasProperties.getPassword(), null, content.getText());
             return "success";
         } catch (MessagingException e) {
             log.error(e.getMessage(), e);

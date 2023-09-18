@@ -3,15 +3,14 @@ package cn.wubo.message.message;
 import cn.wubo.message.core.MessageType;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public abstract class RequestContent<T> {
     protected List<String> alias = new ArrayList<>();
     protected List<MessageType> messageType = new ArrayList<>();
     protected ContentParams params = new ContentParams();
+    protected Map<String, ContentParams> aliasParams = new HashMap<>();
 
     public static TextContent buildText() {
         return new TextContent();
@@ -59,5 +58,10 @@ public abstract class RequestContent<T> {
     public T addMailSmtp(String key, Object value) {
         this.params.getMailSmtp().put(key, value);
         return (T) this;
+    }
+
+    public ContentParams getContentParams(String alias) {
+        if (aliasParams.containsKey(alias)) return aliasParams.get("alias");
+        return params;
     }
 }

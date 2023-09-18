@@ -1,10 +1,43 @@
 # message-spring-boot-starter
 
-[![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
+[![](https://jitpack.io/v/com.gitee.wb04307201/message-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/message-spring-boot-starter)
 
-> 一个消息中间件  
-> 只需要简单的配置和编码，即可通过钉钉自定义机器人、钉钉工作通知、飞书自定义机器人、企业微信群机器人以及邮箱发送相同的消息  
-> 统一消息维护方式，发送时会按照对应的平台类型自动进行转换
+> 这是一个消息中间件  
+> 通过配置和编码，即可将相同的消息通过钉钉自定义机器人、钉钉消息、飞书自定义机器人、飞书消息、企业微信自定义机器人、企业微信消息以及邮箱进行发送
+> 提供统一消息维护方式，发送时会按照对应的平台类型自动进行转换
+
+## [代码示例](https://gitee.com/wb04307201/message-demo)
+
+## 第一步 增加 JitPack 仓库
+
+```xml
+
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+## 第二步 引入jar
+
+```xml
+
+<dependency>
+    <groupId>com.gitee.wb04307201</groupId>
+    <artifactId>message-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+
+
+
+
+
+
+
 
 - [钉钉自定义机器人](https://open.dingtalk.com/document/group/custom-robot-access)
 - [企业微信群机器人](https://developer.work.weixin.qq.com/document/path/91770)
@@ -18,6 +51,7 @@
 ## 第一步 增加 JitPack 仓库
 
 ```xml
+
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -27,7 +61,9 @@
 ```
 
 ## 第二步 引入jar
+
 ```xml
+
 <dependency>
     <groupId>com.gitee.wb04307201</groupId>
     <artifactId>message-spring-boot-starter</artifactId>
@@ -136,13 +172,13 @@ public class DemoController {
 
 目前支持的类型与转换格式对照如下表
 
-| chatbot       | 钉钉  | 微信   | 飞书   | 邮件           |
-|---------------|-----|------|------|--------------|
-| SubLine.text  | 文字  | 文字   | text | <p>          |
-| SubLine.title | 标题  | 标题   | text | <h1>~<h6>    |
-| SubLine.link  | 链接  | 链接   | a    | <a>          |
-| SubLine.quote | 引用  | 引用文字 | text | <blockquote> |
-| SubLine.bold  | 加粗  | 加粗   | text | <strong>     |
+| chatbot       | 钉钉 | 微信   | 飞书   | 邮件           |
+|---------------|----|------|------|--------------|
+| SubLine.text  | 文字 | 文字   | text | <p>          |
+| SubLine.title | 标题 | 标题   | text | <h1>~<h6>    |
+| SubLine.link  | 链接 | 链接   | a    | <a>          |
+| SubLine.quote | 引用 | 引用文字 | text | <blockquote> |
+| SubLine.bold  | 加粗 | 加粗   | text | <strong>     |
 
 ## 其他1：内置界面
 
@@ -155,12 +191,12 @@ public class DemoController {
 ```java
 //可以通过如下方法添加平台信息
 chatbotService.addDingtalk
-chatbotService.addFeishu
-chatbotService.addWeixin
-chatbotService.addMail
+        chatbotService.addFeishu
+        chatbotService.addWeixin
+        chatbotService.addMail
 
 //可以通过如下方法删除平台信息
-chatbotService.removeByAlias
+        chatbotService.removeByAlias
 ```
 
 ## 其他3：实际使用中，可通过配置和实现日志接口方法将数据持久化到数据库中
@@ -168,6 +204,7 @@ chatbotService.removeByAlias
 继承IChatbotRecord并实现方法，例如
 
 ```java
+
 @Component
 public class H2ChatbotRecordImpl implements IChatbotRecord {
 
