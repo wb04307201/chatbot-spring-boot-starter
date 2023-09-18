@@ -1,5 +1,8 @@
 # chatbot-spring-boot-starter
 
+该项目已暂停更新，新项目增加钉钉、飞书、企业微信对单独用户的信息发送，请查看[消息中间件](https://gitee.com/wb04307201/message-spring-boot-starter)
+
+
 [![](https://jitpack.io/v/com.gitee.wb04307201/chatbot-spring-boot-starter.svg)](https://jitpack.io/#com.gitee.wb04307201/chatbot-spring-boot-starter)
 
 > 一个消息群发中间件  
